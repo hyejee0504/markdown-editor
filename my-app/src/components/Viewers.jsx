@@ -10,6 +10,7 @@ export default function Viewers(){
     const ref = useRef();
     const ref1 = useRef();
     const a = `![header](https://capsule-render.vercel.app/api?type=waving&color=0:f6acdd,100:c6acf6&width=1500&height=240&section=header&text=Hello%20World✋%20I'm%20Hyeji!&fontSize=50&fontColor=ffffff )   `
+    // 현습이의 !조언 틀려서 그냥 냅둠
     
  
     const headerchecked = (e) => {
@@ -28,6 +29,8 @@ export default function Viewers(){
             ref.current.getInstance().setMarkdown(valuechecked);
             ref1.current.getInstance().setMarkdown(valuechecked);
         }
+
+
     
     }, [valuechecked])
 
