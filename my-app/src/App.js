@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <Viewers/>
-      <Editor/>
+      {/* <Editor/> */}
       
     </div>
   );
