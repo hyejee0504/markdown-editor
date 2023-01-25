@@ -4,9 +4,8 @@ import Viewers from "./components/Viewers"
 function App() {
   return (
     <div className="App">
-      {/* <HeaderCheck/> */}
       <Viewers/>
-      {/* <Editor/> */}
+      <Editor/>
       
     </div>
   );
