@@ -29,7 +29,7 @@ const SelectWrapper = styled.div`
 
 
 export default function Viewers(){
-    const [value, setValue] = useState({header: "", skill: ""});
+    const [value, setValue] = useState({header: "", skill: "", contact: ""});
     const [valuechecked, setValuechecked] = useState("headernochecked");
     const [headertyped, setHeadertyped] = useState("wave");
     const [color, setColor] = useState("#b897ff");
@@ -44,25 +44,11 @@ export default function Viewers(){
 
     const [badge, setBadge] = useState("");
     const [gradient2, setGradient2] = useState("");
-    // const [html, setHtml] = useState("");
-    // const [css3, setCss3] = useState("");
-    // const [javascript, setJavascript] = useState("");
-    // const [react, setReact] = useState("");
-    // const [typescript, setTypescript] = useState("");
-    // const [cprogramming, setCprogramming] = useState("");
-    // const [cplus, setCplus] = useState("");
-    // const [java, setJava] = useState("");
-    // const [python, setPython] = useState("");
-    // const [kotlin, setKotlin] = useState("");
-    // const [gradient2, setGradient2] = useState("");
-    // const [gradient2, setGradient2] = useState("");
-    // const [gradient2, setGradient2] = useState("");
-    // const [gradient2, setGradient2] = useState("");
-    // const [gradient2, setGradient2] = useState("");
-    // const [gradient2, setGradient2] = useState("");
+ 
 
 
-    const [skillchecked, setSkillchecked] = useState("");
+    const [skillchecked, setSkillchecked] = useState("skillnochecked");
+    const [contactchecked, setContactchecked] = useState("skillnochecked");
 
     const [a, setA] = useState([])
     
@@ -70,8 +56,8 @@ export default function Viewers(){
     const ref1 = useRef();
     
     const headerdefault = `![header](https://capsule-render.vercel.app/api?type=${headertyped}&color=${color}&height=${height}&text=${text}&animation=${textanimation}&fontColor=${fontcolor}&fontSize=${fontsize}&fontAlign=${fontalign}&fontAlignY=${fontaligny})`
-    const skilldefault = `<h2> Teck Stacks </h2> <br> <div> ${badge}</div>`
-    const all = `${headerdefault}  ${skilldefault}`;
+    const skilldefault = `<h2> 🛠️ Teck Stacks </h2> <br> <div> ${badge}</div>`
+    const contactdefault = `<h2> ☎️ Contact me </h2> <br> <div> <img src="https://img.shields.io/badge/ReactNative-61DAFB?style=for-the-badge&logo=React&logoColor=white"></div>`
  
     const headerchecked = (e) => {
         if(e.target.checked){
@@ -96,26 +82,84 @@ export default function Viewers(){
         }
     }
 
+    const checkcontact = (e) => {
+        if(e.target.checked){
+            setContactchecked("contactchecknow");
+            setValue(prev => ({...prev, contact: contactdefault,})) 
+            } 
+        else{
+            setContactchecked(`contactnochecked`);   
+            setValue(prev => ({...prev, contact: "",}))  
+        }
+    }
+
     useEffect(() => {
-        if(valuechecked === "headerchecked" && skillchecked === "skillchecked"){
-            setValue(prev => ({...prev, header: headerdefault, skill: skilldefault,}))
+        if(valuechecked === "headerchecked" && skillchecked === "skillchecknow" && valuechecked === "contactchecknow"){
+            setValue(prev => ({...prev, header: headerdefault, skill: skilldefault, contact: contactdefault,}))
+        }
+        else if(valuechecked === "headerchecked" && skillchecked === "skillchecknow"){
+            setValue(prev => ({...prev, header: headerdefault, skill: skilldefault, contact: "",}))
+        }
+        else if(skillchecked === "skillchecknow" && valuechecked === "contactchecknow"){
+            setValue(prev => ({...prev, header: "", skill: skilldefault, contact: contactdefault,}))
+        }
+        else if(valuechecked === "headerchecked" && valuechecked === "contactchecknow"){
+            setValue(prev => ({...prev, header: headerdefault, skill: "", contact: contactdefault,}))
         }
         else if(valuechecked === "headerchecked" ){
-            setValue(prev => ({...prev, header: headerdefault, skill: "",})) }
-        else if(skillchecked === "skillchecked"){
-            setValue(prev => ({...prev, header: "", skill: skilldefault,}))
+            setValue(prev => ({...prev, header: headerdefault, skill: "", contact: ""})) }
+        else if(skillchecked === "skillchecknow"){
+            setValue(prev => ({...prev, header: "", skill: skilldefault, contact: ""}))
         }
-    }, [headerdefault, skillchecked, skilldefault, valuechecked])
+        else if(valuechecked === "contactchecknow"){
+            setValue(prev => ({...prev,header: "", skill: "", contact: contactdefault,}))
+        }
+    }, [headerdefault, skillchecked, skilldefault, valuechecked, contactchecked])
+
+//     useEffect(() => {
+//         if(skillchecked === "skillchecknow"){
+//     setValue(prev => ({...prev, skill: skilldefault,}))}
+//     else{
+//         setValue(prev => ({...prev, skill: "",}))
+//     }
+// }, [skillchecked, skilldefault])
+
+// useEffect(() => {
+//     if(valuechecked === "headerchecked" ){
+//     setValue(prev => ({...prev, header: headerdefault,}))}
+//     else{
+//         setValue(prev => ({...prev, header: "",}))
+//     }
+// }, [headerdefault, valuechecked])
+
+// useEffect(() => {
+//     if(valuechecked === "contactchecknow" ){
+//     setValue(prev => ({...prev, contact: contactdefault,}))}
+//     else{
+//         setValue(prev => ({...prev, contact: "",}))
+//     }
+// }, [contactchecked, contactdefault, valuechecked])
+
+    // useEffect(() => {
+    //     if(valuechecked === "headerchecked" ){
+    //         setValue(prev => ({...prev, header: headerdefault,})) }
+    //     if(skillchecked === "skillchecknow"){
+    //         setValue(prev => ({...prev, skill: skilldefault,}))
+    //     }if(contactchecked === "contactchecknow"){
+    //         setValue(prev => ({...prev, contact: contactdefault,}))
+    //     }
+    // }, [skillchecked, valuechecked, contactchecked])
 
     useEffect(() => {
         let copy = [...a];
         copy[0] = value.header;
         copy[1] = value.skill;
-        console.log(copy);
+        copy[2] = value.contact;
+        console.log(copy[0]);
+        console.log(copy[1]);
+        console.log(copy[2]);
         setA(copy);
-}, [value.header, value.skill])
-
-
+}, [value.header, value.skill, value.contact])
 
     useEffect(() => {
         ref.current.getInstance().setMarkdown("");
@@ -125,8 +169,7 @@ export default function Viewers(){
             b += a[i];
         }
         ref.current.getInstance().setMarkdown(b);
-        ref1.current.getInstance().setMarkdown(b);
-
+        // ref1.current.getInstance().setMarkdown(b);
         }
     , [a])
 
@@ -191,9 +234,10 @@ export default function Viewers(){
     
     //기술스택 함수모음
 
-    const setAllBadge = () => {
-
+    const setAllBadge = (a) => {
+        setBadge(a)
     }
+
 
      
 
@@ -241,17 +285,21 @@ export default function Viewers(){
                     {headercheckfunc()}
                     <input type="checkbox" onClick={checkskill}/>Skill Stack
                     {skillcheckfunc()}
+                    <input type="checkbox" onClick={checkcontact}/>Contact me
+                    {/* {skillcheckfunc()} */}
                     </form>
                 </SelectWrapper >
                 {/* 미리보기 */}
                 <PreviewShow>
                     <h2>미리보기</h2>
-                    {valuechecked !== "headernochecked" || skillchecked !== "skillnochecked" ?
-                         <Viewer ref={ref} initialValue={valuechecked}/>  : null
+                    {valuechecked !== "headernochecked" || skillchecked !== "skillnochecked" || contactchecked !== "contactnochecked"?
+                         <Viewer ref={ref}/>  : <Viewer ref={ref} initialValue=""/>
                     }
+                    {/* <Viewer ref={ref} initialValue={valuechecked}/> */}
+
                 </PreviewShow>
             </Wrapper>
-        <Editor ref={ref1} content={valuechecked} previewStyle='vertical' height='100em' autofocus={false}/>
+        {/* <Editor ref={ref1} content={valuechecked} previewStyle='vertical' height='100em' autofocus={false}/> */}
         </>
 	);
 }
