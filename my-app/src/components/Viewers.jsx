@@ -94,16 +94,16 @@ export default function Viewers(){
     }
 
     useEffect(() => {
-        if(valuechecked === "headerchecked" && skillchecked === "skillchecknow" && valuechecked === "contactchecknow"){
+        if(valuechecked === "headerchecked" && skillchecked === "skillchecknow" && contactchecked === "contactchecknow"){
             setValue(prev => ({...prev, header: headerdefault, skill: skilldefault, contact: contactdefault,}))
         }
         else if(valuechecked === "headerchecked" && skillchecked === "skillchecknow"){
             setValue(prev => ({...prev, header: headerdefault, skill: skilldefault, contact: "",}))
         }
-        else if(skillchecked === "skillchecknow" && valuechecked === "contactchecknow"){
+        else if(skillchecked === "skillchecknow" && contactchecked === "contactchecknow"){
             setValue(prev => ({...prev, header: "", skill: skilldefault, contact: contactdefault,}))
         }
-        else if(valuechecked === "headerchecked" && valuechecked === "contactchecknow"){
+        else if(valuechecked === "headerchecked" && contactchecked === "contactchecknow"){
             setValue(prev => ({...prev, header: headerdefault, skill: "", contact: contactdefault,}))
         }
         else if(valuechecked === "headerchecked" ){
@@ -111,7 +111,7 @@ export default function Viewers(){
         else if(skillchecked === "skillchecknow"){
             setValue(prev => ({...prev, header: "", skill: skilldefault, contact: ""}))
         }
-        else if(valuechecked === "contactchecknow"){
+        else if(contactchecked === "contactchecknow"){
             setValue(prev => ({...prev,header: "", skill: "", contact: contactdefault,}))
         }
     }, [headerdefault, skillchecked, skilldefault, valuechecked, contactchecked])
@@ -293,7 +293,7 @@ export default function Viewers(){
                 <PreviewShow>
                     <h2>미리보기</h2>
                     {valuechecked !== "headernochecked" || skillchecked !== "skillnochecked" || contactchecked !== "contactnochecked"?
-                         <Viewer ref={ref}/>  : <Viewer ref={ref} initialValue=""/>
+                         <Viewer ref={ref}/>  : null
                     }
                     {/* <Viewer ref={ref} initialValue={valuechecked}/> */}
 

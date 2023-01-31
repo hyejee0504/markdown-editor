@@ -72,26 +72,37 @@ export default function HeaderColor(props) {
 "Trello" : "0052CC",
 "Vercel" : "000000",
 "Vue.js" : "4FC08D",
-"Zeplin": "fdbd39"
+"Zeplin": "fdbd39",
+"Matlab": "0076a8"
+
 
 
   }
   const [badgeArr, setBadgeArr] = useState([]);
+  const [style, setStyle] = useState("for-the-badge");
   const inputref = useRef();
+  const inputref1 = useRef();
   const cancelcheck = (e) => {
-    // for(var i = 0; i < 146; i+=2){
-    //   inputref.current.childNodes[i].checked = false;
-    // }
-    // e.target.checked = true;
     if(e.target.checked){
       setBadgeArr(badgeArr => [...badgeArr, e.target.name]);
     }else{
       setBadgeArr(badgeArr => badgeArr.filter(value => value !== e.target.name));
     }
   }
+
+  const stylecheck = (e) => {
+    for(var i = 0; i < 10; i+=2){
+      inputref1.current.childNodes[i].checked = false;
+    }
+    e.target.checked = true;
+    if(e.target.checked){
+      setStyle(e.target.name);
+      props.setBadgestyle(e.target.name);
+    }
+  }
   
   const resetCheck = () => {
-    for(var i = 0; i < 130; i+=2){
+    for(var i = 0; i < 140; i+=2){
       inputref.current.childNodes[i].checked = false;
     }
     setBadgeArr([])
@@ -101,17 +112,17 @@ export default function HeaderColor(props) {
     let badgeText = ""
     for(var i in badgeArr){
       if(badgeArr[i] === "ReactNative"){
-        badgeText += `<img src="https://img.shields.io/badge/ReactNative-61DAFB?style=for-the-badge&logo=React&logoColor=white">  `
+        badgeText += `<img src="https://img.shields.io/badge/ReactNative-61DAFB?style=${style}&logo=React&logoColor=white">  `
       }else{
-        badgeText += `<img src="https://img.shields.io/badge/${badgeArr[i]}-${colorArr[badgeArr[i]]}?style=for-the-badge&logo=${badgeArr[i]}&logoColor=white">  `
+        badgeText += `<img src="https://img.shields.io/badge/${badgeArr[i]}-${colorArr[badgeArr[i]]}?style=${style}&logo=${badgeArr[i]}&logoColor=white">  `
       }
     }
     props.setAllBadge(badgeText);
-  }, [badgeArr])
+  }, [badgeArr, style])
 
   return (
     <>
-                    <h3>기술 스택 선택</h3>
+                    <h3>본인이 보유한 기술 스택을 모두 선택해주세요.</h3>
                     <div ref={inputref}>
                       <input type="checkbox" name="Amazon S3"  onClick={(e) => {cancelcheck(e)}}/>Amazon S3
                       <input type="checkbox"  name="Android" onClick={(e) => {cancelcheck(e)}}/>Android
@@ -155,6 +166,7 @@ export default function HeaderColor(props) {
                       <input type="checkbox" color="" name="Keras" onClick={(e) => {cancelcheck(e)}}/>Keras
                       <input type="checkbox" color="" name="Linux" onClick={(e) => {cancelcheck(e)}}/>Linux
                       <input type="checkbox" color="" name="MariaDB" onClick={(e) => {cancelcheck(e)}}/>MariaDB
+                      <input type="checkbox" color="0076a8" name="Matlab" onClick={(e) => {cancelcheck(e)}}/>Matlab
                       <input type="checkbox" color="" name="MongoDB" onClick={(e) => {cancelcheck(e)}}/>MongoDB
                       <input type="checkbox" color="" name="MySQL" onClick={(e) => {cancelcheck(e)}}/>MySQL
                       <input type="checkbox" color="" name="Netlify" onClick={(e) => {cancelcheck(e)}}/>Netlify
@@ -190,10 +202,14 @@ export default function HeaderColor(props) {
                    
                       <button onClick={resetCheck}>초기화</button>
 
-
-
-
-
+                      <h3>기술 스택 뱃지의 스타일을 선택해주세요.</h3>
+                      <div ref={inputref1}>
+                      <input type="checkbox" color="" name="plastic" onClick={stylecheck}/>Plastic
+                      <input type="checkbox" color="" name="flat" onClick={stylecheck}/>Flat
+                      <input type="checkbox" color="" name="flat-square" onClick={stylecheck}/>Flat-square
+                      <input type="checkbox" color="" name="for-the-badge" onClick={stylecheck}/>For-the-badge
+                      <input type="checkbox" color="" name="social" onClick={stylecheck}/>Social
+                      </div>
                     </div >
                 </>
   )
