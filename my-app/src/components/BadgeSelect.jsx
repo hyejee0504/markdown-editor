@@ -1,5 +1,27 @@
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import { useRef, useState, useEffect } from 'react';
+import {Checkboxinput, Typeheader, Selectwrapper} from '../components/style';
+import styled from 'styled-components';
+
+const Categorybutton = styled.button`
+  border: 0;
+  margin: 0 5px;
+  border-radius: 10px;
+  padding: 5px, 10px; 
+  /* font-weight: 600; */
+  color: #ffffff;
+  font-size: 13px;
+  display:inline-block;
+`
+
+const BadgeWrap = styled.div`
+     margin: 5px;
+    margin-right: 10px;
+    margin-left: 10px;
+`
+const Inputwrap = styled.div`
+  display: inline-block;
+`
 
 export default function HeaderColor(props) {
   const colorArr = {"Amazon S3" : "569A31", 
@@ -12,7 +34,7 @@ export default function HeaderColor(props) {
 "Bitrise": "683D87",
 "Bootstrap": "7952B3",
 "C": "A8B9CC",
-"C%2B%2B": "00599C",
+"C++": "00599C",
 "CSS3": "1572B6",
 "Django": "092E20",
 "Discord": "5865F2",
@@ -78,17 +100,39 @@ export default function HeaderColor(props) {
 
 
   }
+
+
   const [badgeArr, setBadgeArr] = useState([]);
+  const [alphabet, setAlphabet] = useState("");
   const [style, setStyle] = useState("for-the-badge");
   const inputref = useRef();
   const inputref1 = useRef();
+
   const cancelcheck = (e) => {
     if(e.target.checked){
+      console.log(e.target.checked);
       setBadgeArr(badgeArr => [...badgeArr, e.target.name]);
+      e.target.checked = true;
     }else{
       setBadgeArr(badgeArr => badgeArr.filter(value => value !== e.target.name));
+      e.target.checked = false;
     }
   }
+
+  console.log(badgeArr);
+
+  let allbadge = [];
+  for(var i in colorArr){
+    allbadge.push(
+      <Inputwrap>
+        <Checkboxinput type="checkbox" name={i} onClick={(e) => {cancelcheck(e)} }checked={false} /> {i}
+      </Inputwrap>
+    )
+  }
+
+  console.log(allbadge);
+
+
 
   const stylecheck = (e) => {
     for(var i = 0; i < 10; i+=2){
@@ -102,115 +146,165 @@ export default function HeaderColor(props) {
   }
   
   const resetCheck = () => {
-    for(var i = 0; i < 140; i+=2){
-      inputref.current.childNodes[i].checked = false;
-    }
-    setBadgeArr([])
+    // for(var i = 0; i < 140; i+=2){
+    //   inputref.current.childNodes[i].checked = false;
+    // }
+    setBadgeArr([]);
+    setabc(allbadge);
   }
 
   useEffect(() => {
     let badgeText = ""
     for(var i in badgeArr){
       if(badgeArr[i] === "ReactNative"){
-        badgeText += `<img src="https://img.shields.io/badge/ReactNative-61DAFB?style=${style}&logo=React&logoColor=white">  `
-      }else{
-        badgeText += `<img src="https://img.shields.io/badge/${badgeArr[i]}-${colorArr[badgeArr[i]]}?style=${style}&logo=${badgeArr[i]}&logoColor=white">  `
+        badgeText += `<img src="https://img.shields.io/badge/ReactNative-61DAFB?style=${style}&logo=React&logoColor=white">
+          `
+      }else if(badgeArr[i] === "C++"){
+        badgeText += `<img src="https://img.shields.io/badge/${badgeArr[i]}-${colorArr[badgeArr[i]]}?style=${style}&logo=C%2B%2B&logoColor=white">
+          `
+      }
+      else{
+        badgeText += `<img src="https://img.shields.io/badge/${badgeArr[i]}-${colorArr[badgeArr[i]]}?style=${style}&logo=${badgeArr[i]}&logoColor=white">
+          `
       }
     }
     props.setAllBadge(badgeText);
   }, [badgeArr, style])
 
+  const filteralphabet = (e) => {
+    if(e.target.name === "a"){
+      setAlphabet("a")
+    }else if(e.target.name === "h"){
+      setAlphabet("h")
+    }else if(e.target.name === "o"){
+      setAlphabet("o")
+    }else if(e.target.name === "v"){
+      setAlphabet("v")
+    }else{
+      setAlphabet("all")
+    }
+    
+  }
+  const [abc, setabc] = useState([]);
+  useEffect(()=> {
+    if(alphabet === "a"){
+      let d = allbadge.filter(value => value.props.children[2].match(/^[A-G]/))
+      if(badgeArr.length > 0){
+        let w = []
+        for(var i in badgeArr){
+          for(var j in d){
+            if(d[j].props.children[2] === badgeArr[i]){
+              w.push(j);
+            }}
+        }
+        for(var z in w){
+          d[w[z]] = (<Inputwrap><Checkboxinput type="checkbox" name={d[w[z]].props.children[2]} onClick={(e) => {cancelcheck(e)} }checked={true} /> {d[w[z]].props.children[2]}</Inputwrap>)
+        }
+          setabc(d);}
+          else{
+            setabc(d);
+          }    
+    }else if(alphabet === "h"){
+      const e = allbadge.filter(value => value.props.children[2].match(/^[H-N]/))
+      if(badgeArr.length > 0){
+        let w = []
+        for(var a in badgeArr){
+          for(var b in e){
+            if(e[b].props.children[2] === badgeArr[a]){
+              w.push(b);
+            }}
+        }
+        for(var c in w){
+          e[w[c]] = (<Inputwrap><Checkboxinput type="checkbox" name={e[w[c]].props.children[2]} onClick={(e) => {cancelcheck(e)} }checked={true} /> {e[w[c]].props.children[2]}</Inputwrap>)
+        }
+          setabc(e);}
+          else{
+            setabc(e);
+          }
+    }else if(alphabet === "o"){
+      const f = allbadge.filter(value => value.props.children[2].match(/^[O-U]/))
+      if(badgeArr.length > 0){
+        let w = []
+        for(var d in badgeArr){
+          for(var g in f){
+            if(f[g].props.children[2] === badgeArr[d]){
+              w.push(g);
+            }}
+        }
+        for(var h in w){
+          f[w[h]] = (<Inputwrap><Checkboxinput type="checkbox" name={f[w[h]].props.children[2]} onClick={(e) => {cancelcheck(e)} }checked={true} /> {f[w[h]].props.children[2]}</Inputwrap>)
+        }
+          setabc(f);}
+          else{
+            setabc(f);
+          }
+    }else if(alphabet === "v"){
+      const g = allbadge.filter(value => value.props.children[2].match(/^[V-Z]/))
+      if(badgeArr.length > 0){
+        let w = []
+        for(var k in badgeArr){
+          for(var l in g){
+            if(g[l].props.children[2] === badgeArr[k]){
+              w.push(l);
+            }}
+        }
+        for(var m in w){
+          g[w[m]] = (<Inputwrap><Checkboxinput type="checkbox" name={g[w[m]].props.children[2]} onClick={(e) => {cancelcheck(e)} }checked={true} /> {g[w[m]].props.children[2]}</Inputwrap>)
+        }
+          setabc(g);}
+          else{
+            setabc(g);
+          }
+    }
+    else{
+      let all = allbadge;
+      if(badgeArr.length > 0){
+        
+        let w = []
+        for(var o in badgeArr){
+          for(var p in all){
+            if(all[p].props.children[2] === badgeArr[o]){
+              w.push(p);
+            }}
+        }
+        for(var q in w){
+          all[w[q]] = (<Inputwrap><Checkboxinput type="checkbox" name={all[w[q]].props.children[2]} onClick={(e) => {cancelcheck(e)} }checked={true} /> {all[w[q]].props.children[2]}</Inputwrap>)
+        }
+          setabc(all);}
+          else{
+            setabc(all);
+          }
+    }
+
+  }, [alphabet, badgeArr])
+
+  // const filteralphabet1 = () => {
+    
+  // }
+
   return (
-    <>
-                    <h3>본인이 보유한 기술 스택을 모두 선택해주세요.</h3>
-                    <div ref={inputref}>
-                      <input type="checkbox" name="Amazon S3"  onClick={(e) => {cancelcheck(e)}}/>Amazon S3
-                      <input type="checkbox"  name="Android" onClick={(e) => {cancelcheck(e)}}/>Android
-                      <input type="checkbox"  name="AngularJS" onClick={(e) => {cancelcheck(e)}}/>Angular.js
-                      <input type="checkbox" name="Apache Tomcat" onClick={(e) => {cancelcheck(e)}}/>Apache Tomcat
-                      <input type="checkbox" color="" name="Apollo GraphQL" onClick={(e) => {cancelcheck(e)}}/>Apollo GraphQL
-                      <input type="checkbox" color="" name="Amazon AWS" onClick={(e) => {cancelcheck(e)}}/>Amazon AWS
-                      <input type="checkbox" color="" name="Babel" onClick={(e) => {cancelcheck(e)}}/>Babel
-                      <input type="checkbox" color="" name="Bitrise" onClick={(e) => {cancelcheck(e)}}/>Bitrise
-                      <input type="checkbox" color="" name="Bootstrap" onClick={(e) => {cancelcheck(e)}}/>Bootstrap
-                      <input type="checkbox" color="" name="C" onClick={(e) => {cancelcheck(e)}}/>C
-                      <input type="checkbox" color="" name="C%2B%2B" onClick={(e) => {cancelcheck(e)}}/>C++
-                      <input type="checkbox" color="" name="CSS3" onClick={(e) => {cancelcheck(e)}}/>CSS3
-                      <input type="checkbox" color="" name="Apache Cordova" onClick={(e) => {cancelcheck(e)}}/>Apache Cordova
-                      <input type="checkbox" color=""  name="Django" onClick={(e) => {cancelcheck(e)}}/>Django
-                      <input type="checkbox" color=""  name="Discord" onClick={(e) => {cancelcheck(e)}}/>Discord
-                      <input type="checkbox" color="" name="Docker" onClick={(e) => {cancelcheck(e)}}/>Docker
-                      <input type="checkbox" color="" name="Elasticsearch" onClick={(e) => {cancelcheck(e)}}/>Elasticsearch
-                      <input type="checkbox" color="" name="Eslint" onClick={(e) => {cancelcheck(e)}}/>Eslint
-                      <input type="checkbox" color="" name="Expo" onClick={(e) => {cancelcheck(e)}}/>Expo
-                      <input type="checkbox" color="" name="Express" onClick={(e) => {cancelcheck(e)}}/>Express
-                      <input type="checkbox" color="" name="Figma" onClick={(e) => {cancelcheck(e)}}/>Figma
-                      <input type="checkbox" color="" name="Firebase" onClick={(e) => {cancelcheck(e)}}/>Firebase
-                      <input type="checkbox" color="" name="Flask" onClick={(e) => {cancelcheck(e)}}/>Flask
-                      <input type="checkbox" color="" name="Flutter" onClick={(e) => {cancelcheck(e)}}/>Flutter
-                      <input type="checkbox" color=""  name="Gatsby" onClick={(e) => {cancelcheck(e)}}/>Gatsby
-                      <input type="checkbox" color=""  name="GitHub Pages" onClick={(e) => {cancelcheck(e)}}/>GitHub Pages
-                      <input type="checkbox" color="" name="Git" onClick={(e) => {cancelcheck(e)}}/>Git
-                      <input type="checkbox" color="" name="Github" onClick={(e) => {cancelcheck(e)}}/>Github
-                      <input type="checkbox" color="" name="Go" onClick={(e) => {cancelcheck(e)}}/>Go
-                      <input type="checkbox" color="" name="GraphQL" onClick={(e) => {cancelcheck(e)}}/>GraphQL
-                      <input type="checkbox" color="" name="Gulp" onClick={(e) => {cancelcheck(e)}}/>Gulp
-                      <input type="checkbox" color="" name="HTML5" onClick={(e) => {cancelcheck(e)}}/>HTML5
-                      <input type="checkbox" color="" name="Heroku" onClick={(e) => {cancelcheck(e)}}/>Heroku
-                      <input type="checkbox" color=""  name="Hyperledger" onClick={(e) => {cancelcheck(e)}}/>Hyperledger
-                      <input type="checkbox" color="" name="IOS" onClick={(e) => {cancelcheck(e)}}/>IOS
-                      <input type="checkbox" color="" name="jQuery" onClick={(e) => {cancelcheck(e)}}/>jQuery
-                      <input type="checkbox" color="" name="Java" onClick={(e) => {cancelcheck(e)}}/>Java
-                      <input type="checkbox" color="" name="Javascript" onClick={(e) => {cancelcheck(e)}}/>Javascript
-                      <input type="checkbox" color="" name="Jenkins" onClick={(e) => {cancelcheck(e)}}/>Jenkins
-                      <input type="checkbox" color="" name="Keras" onClick={(e) => {cancelcheck(e)}}/>Keras
-                      <input type="checkbox" color="" name="Linux" onClick={(e) => {cancelcheck(e)}}/>Linux
-                      <input type="checkbox" color="" name="MariaDB" onClick={(e) => {cancelcheck(e)}}/>MariaDB
-                      <input type="checkbox" color="0076a8" name="Matlab" onClick={(e) => {cancelcheck(e)}}/>Matlab
-                      <input type="checkbox" color="" name="MongoDB" onClick={(e) => {cancelcheck(e)}}/>MongoDB
-                      <input type="checkbox" color="" name="MySQL" onClick={(e) => {cancelcheck(e)}}/>MySQL
-                      <input type="checkbox" color="" name="Netlify" onClick={(e) => {cancelcheck(e)}}/>Netlify
-                      <input type="checkbox" color="" name="Next.js" onClick={(e) => {cancelcheck(e)}}/>Next.js
-                      <input type="checkbox" color="" name="Node.js" onClick={(e) => {cancelcheck(e)}}/>Node.js
-                      <input type="checkbox" color="" name="Notion" onClick={(e) => {cancelcheck(e)}}/>Notion
-                      <input type="checkbox" color="" name="Oracle" onClick={(e) => {cancelcheck(e)}}/>Oracle
-                      <input type="checkbox" color=""  name="Prettier" onClick={(e) => {cancelcheck(e)}}/>Prettier
-                      <input type="checkbox" color="" name="Prisma" onClick={(e) => {cancelcheck(e)}}/>Prisma
-                      <input type="checkbox" color="" name="Pug" onClick={(e) => {cancelcheck(e)}}/>Pug
-                      <input type="checkbox" color="" name="Python" onClick={(e) => {cancelcheck(e)}}/>Python
+    <Selectwrapper>
+                    <Typeheader>1. 본인이 보유한 기술 스택을 모두 선택해주세요.</Typeheader>
+                    <Categorybutton style={{"background-color": "#ee8383", "padding": "5px, 10px"}} name='a' onClick={filteralphabet}>A - G</Categorybutton>
+                    <Categorybutton style={{"background-color": "#fadd7e"}} name='h' onClick={filteralphabet}>H - N</Categorybutton>
+                    <Categorybutton style={{"background-color": "#96f07b"}} name='o' onClick={filteralphabet}>O - U</Categorybutton>
+                    <Categorybutton style={{"background-color": "#83a5ee"}} name='v' onClick={filteralphabet}>V - Z</Categorybutton>
+                    <Categorybutton style={{"background-color": "#af83ee"}} name='all' onClick={filteralphabet}>전체</Categorybutton>
+                    <Categorybutton style={{"background-color": "#ee83d7"}} onClick={resetCheck}>초기화</Categorybutton>
+                    
+                      <BadgeWrap>{abc}</BadgeWrap>
+                      
+                      
 
-                      <input type="checkbox" color="" name="PyTorch" onClick={(e) => {cancelcheck(e)}}/>PyTorch
-                      <input type="checkbox" color="" name="React" onClick={(e) => {cancelcheck(e)}}/>React
-                      <input type="checkbox" color="" name="ReactNative" onClick={(e) => {cancelcheck(e)}}/>ReactNative
-                      <input type="checkbox" color="" name="ReactiveX" onClick={(e) => {cancelcheck(e)}}/>ReactiveX
-                      <input type="checkbox" color="" name="Redux" onClick={(e) => {cancelcheck(e)}}/>Redux
-                      <input type="checkbox" color="" name="ReduxSaga" onClick={(e) => {cancelcheck(e)}}/>ReduxSaga
-                      <input type="checkbox" color="" name="Sass" onClick={(e) => {cancelcheck(e)}}/>Sass
-                      <input type="checkbox" color="" name="Selenium" onClick={(e) => {cancelcheck(e)}}/>Selenium
-                      <input type="checkbox" color="" name="Slack" onClick={(e) => {cancelcheck(e)}}/>Slack
-                      <input type="checkbox" color="" name="Spring" onClick={(e) => {cancelcheck(e)}}/>Spring
-                      <input type="checkbox" color=""  name="Spring Boot" onClick={(e) => {cancelcheck(e)}}/>Spring Boot
-                      <input type="checkbox" color="" name="StyledComponents" onClick={(e) => {cancelcheck(e)}}/>StyledComponents
-                      <input type="checkbox" color="" name="Swift" onClick={(e) => {cancelcheck(e)}}/>Swift
-                      <input type="checkbox" color="" name="Tailwind CSS" onClick={(e) => {cancelcheck(e)}}/>Tailwind CSS
-
-                      <input type="checkbox" color="" name="Tensorflow" onClick={(e) => {cancelcheck(e)}}/>Tensorflow
-                      <input type="checkbox" color="" name="Trello" onClick={(e) => {cancelcheck(e)}}/>Trello
-                      <input type="checkbox" color="" name="Vercel" onClick={(e) => {cancelcheck(e)}}/>Vercel
-                      <input type="checkbox" color="" name="Vue.js" onClick={(e) => {cancelcheck(e)}}/>Vue.js
-                      <input type="checkbox" color="" name="Zeplin" onClick={(e) => {cancelcheck(e)}}/>Zeplin
-                   
-                      <button onClick={resetCheck}>초기화</button>
-
-                      <h3>기술 스택 뱃지의 스타일을 선택해주세요.</h3>
+                      <Typeheader>2. 기술 스택 뱃지의 스타일을 선택해주세요.</Typeheader>
                       <div ref={inputref1}>
-                      <input type="checkbox" color="" name="plastic" onClick={stylecheck}/>Plastic
-                      <input type="checkbox" color="" name="flat" onClick={stylecheck}/>Flat
-                      <input type="checkbox" color="" name="flat-square" onClick={stylecheck}/>Flat-square
-                      <input type="checkbox" color="" name="for-the-badge" onClick={stylecheck}/>For-the-badge
-                      <input type="checkbox" color="" name="social" onClick={stylecheck}/>Social
+                      <Checkboxinput type="checkbox" color="" name="plastic" onClick={stylecheck}/>Plastic
+                      <Checkboxinput type="checkbox" color="" name="flat" onClick={stylecheck}/>Flat
+                      <Checkboxinput type="checkbox" color="" name="flat-square" onClick={stylecheck}/>Flat-square
+                      <Checkboxinput type="checkbox" color="" name="for-the-badge" onClick={stylecheck}/>For-the-badge
+                      <Checkboxinput type="checkbox" color="" name="social" onClick={stylecheck}/>Social
                       </div>
-                    </div >
-                </>
+                    
+                </Selectwrapper>
   )
 }

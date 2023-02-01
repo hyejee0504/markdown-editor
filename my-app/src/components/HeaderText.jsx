@@ -1,5 +1,6 @@
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import { useRef } from 'react';
+import {Checkboxinput, Typeheader, Selectwrapper} from '../components/style';
 
 export default function HeaderText(props) {
   const inputref = useRef();
@@ -12,12 +13,11 @@ export default function HeaderText(props) {
 
   }
   return (
-    <>
-                    <h3>Text</h3>
+    <Selectwrapper>
+                    <Typeheader>4. Text</Typeheader>
                     <div ref={inputref}>
-                      <input type="text" name="small" onChange={(e) => {cancelcheck(e)}}/>
-                      <button>텍스트</button>
+                      <input type="text" name="small" onChange={(e) => {cancelcheck(e)}} placeholder='Header 입력 ex) Hello world!' style={{"width":"250px", "margin-left":"30px"}}/>
                     </div >
-                </>
+                </Selectwrapper>
   )
 }

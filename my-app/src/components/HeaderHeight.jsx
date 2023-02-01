@@ -1,5 +1,6 @@
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import { useRef } from 'react';
+import {Checkboxinput, Typeheader, Selectwrapper} from '../components/style';
 
 export default function HeaderHeight(props) {
   const inputref = useRef();
@@ -12,13 +13,13 @@ export default function HeaderHeight(props) {
 
   }
   return (
-    <>
-                    <h3>Height</h3>
+    <Selectwrapper>
+                    <Typeheader>3. Height</Typeheader>
                     <div ref={inputref}>
-                      <input type="checkbox" name="small" onClick={(e) => {cancelcheck(e)}}/>Small
-                      <input type="checkbox"  name="medium" onClick={(e) => {cancelcheck(e)}}/>Medium
-                      <input type="checkbox" name="large" onClick={(e) => {cancelcheck(e)}}/>Large
+                      <Checkboxinput type="checkbox" name="small" onClick={(e) => {cancelcheck(e)}}/>Small
+                      <Checkboxinput type="checkbox"  name="medium" onClick={(e) => {cancelcheck(e)}}/>Medium
+                      <Checkboxinput type="checkbox" name="large" onClick={(e) => {cancelcheck(e)}}/>Large
                     </div >
-                </>
+                </Selectwrapper>
   )
 }

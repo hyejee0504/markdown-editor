@@ -19,14 +19,25 @@ export default function HeaderColor(props) {
   
 
   const cancelcheck = (e) => {
-
-    if(e.target.checked){
-      setBadgeArr(badgeArr => [...badgeArr, e.target.name]);
-      setCheckArr(checkArr => ({...checkArr, [e.target.name]: true }))
-    }else{
-      setBadgeArr(badgeArr => badgeArr.filter(value => value !== e.target.name));
-      setCheckArr(checkArr => ({...checkArr, [e.target.name] : false }))
+    if(e.target.name === "githubbadge" && e.target.checked){
+      props.setGithubhitbadge(`<a href="https://hits.seeyoufarm.com"> <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2F${props.username}%2F&count_bg=%23000000&title_bg=%23000000&icon=github.svg&icon_color=%23FFFFFF&title=GitHub&edge_flat=false"/></a>
+      `)
+    }else if(e.target.name === "githubbadge"){
+      props.setGithubhitbadge("");
     }
+    else{
+      if(e.target.checked){
+        setBadgeArr(badgeArr => [...badgeArr, e.target.name]);
+        setCheckArr(checkArr => ({...checkArr, [e.target.name]: true }))
+        
+      }else{
+        setBadgeArr(badgeArr => badgeArr.filter(value => value !== e.target.name));
+        setCheckArr(checkArr => ({...checkArr, [e.target.name] : false }))
+      }
+
+    }
+
+    
   }
   
   
@@ -35,9 +46,11 @@ export default function HeaderColor(props) {
     let badgeText = ""
     for(var i in badgeArr){
       if(badgeArr[i] === "Gmail"){
-        badgeText += `<a href=mailto:${linkArr[badgeArr[i]]}> <img src="https://img.shields.io/badge/${badgeArr[i]}-${colorArr[badgeArr[i]]}?style=${props.badgestyle}&logo=${badgeArr[i]}&logoColor=white&link=mailto:${linkArr[badgeArr[i]]}"> </a> `  
+        badgeText += `<a href=mailto:${linkArr[badgeArr[i]]}> <img src="https://img.shields.io/badge/${badgeArr[i]}-${colorArr[badgeArr[i]]}?style=${props.badgestyle}&logo=${badgeArr[i]}&logoColor=white&link=mailto:${linkArr[badgeArr[i]]}"> </a>
+         `  
       }else{
-        badgeText += `<a href=${linkArr[badgeArr[i]]}> <img src="https://img.shields.io/badge/${badgeArr[i]}-${colorArr[badgeArr[i]]}?style=${props.badgestyle}&logo=${badgeArr[i]}&logoColor=white&link=${linkArr[badgeArr[i]]}"> </a> ` 
+        badgeText += `<a href=${linkArr[badgeArr[i]]}> <img src="https://img.shields.io/badge/${badgeArr[i]}-${colorArr[badgeArr[i]]}?style=${props.badgestyle}&logo=${badgeArr[i]}&logoColor=white&link=${linkArr[badgeArr[i]]}"> </a>
+         ` 
       }
     }
     props.setContactAllBadge(badgeText);
@@ -65,14 +78,8 @@ const changeurl = (e) => {
                       {checkArr.Notion ? <input type="text" name="Notion" placeholder='Notion url 입력' onChange={changeurl}/> : null}
                       <input type="checkbox" name="Gmail" onClick={(e) => {cancelcheck(e)}}/>Gmail
                       {checkArr.Gmail ? <input type="text" name="Gmail" placeholder='Gmail url 입력' onChange={changeurl}/> : null}
-                     
-                      {/* <button onClick={resetCheck}>초기화</button> */}
-
-
-
-
-
                     </div >
+                    <input type="checkbox" name="githubbadge"  onClick={(e) => {cancelcheck(e)}}/>Github 방문자수 뱃지
                 </>
   )
 }

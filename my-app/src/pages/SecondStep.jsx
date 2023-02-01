@@ -1,6 +1,6 @@
 import {React, useState, useRef, useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
-import { Editor, Viewer } from '@toast-ui/react-editor';
+import { Viewer } from '@toast-ui/react-editor';
 import styled from "styled-components";
 import HeaderCheck from '../components/HeaderType';
 import HeaderColor from "../components/HeaderColor";
@@ -13,25 +13,46 @@ import HeaderTextAlign from '../components/HeaderTextAlign';
 import BadgeSelect from '../components/BadgeSelect';
 import ContactBadgeSelect from '../components/ContactBadgeSelect'
 import Introduction from '../components/Introduction';
+import Stat from '../components/Stat';
+
+import downpng from '../asset/icon-down-arrow.png';
+import uppng from '../asset/icon-up-arrow.png';
 
 const Wrapper = styled.div`
     display: flex;
+    width: 100%;
 `
+
 const PreviewShow = styled.div`
-    width: 70%;
+    width: 100%;
     height: 70em;
+    padding-left: 40px;
 `
 
 const SelectWrapper = styled.div`
-    width: 40%;
+    width: 60%;
+    border-right: 2px solid black;
+    padding-right:10px;
+`
+
+const Topheader = styled.h2`
+    position: relative;
+`
+const Downimg = styled.img`
+    width: 25px;
+    padding-top: 15px;
+    position: absolute;
+    top: -10px;
+    right: 40px;
+`
+
+const HeadertypeWrapper = styled.div`
+    margin-left: 20px;
 `
 
 export default function SecondStep() {
 
-    const [value, setValue] = useState({header: "", introduction: "", skill: "", contact: "", introduce: ""});
-
-
-    const [valuechecked, setValuechecked] = useState("headernochecked");
+    const [value, setValue] = useState({header: "", skill: "", contact: "", introduce: "", stat: ""});
     const [headertyped, setHeadertyped] = useState("wave");
     const [color, setColor] = useState("#b897ff");
     const [height, setHeight] = useState(120);
@@ -46,23 +67,38 @@ export default function SecondStep() {
     const [badge, setBadge] = useState("");
     const [badgestyle, setBadgestyle] = useState("");
 
+    const [hitbadge, setHitBadge] = useState("");
     const [contactbadge, setContactBadge] = useState("");
 
     const [introductionheader, setIntroductionheader] = useState("");
     const [introduction, setIntroduction] = useState("");
+
+    const [stats, setStats] = useState("");
+    const [mostlanguage, setMostlanguage] = useState("");
     
-    
+    const [headeractive, setHeaderactive] = useState(false);
+    const [introactive, setIntroactive] = useState(false);
+    const [skillactive, setSkillactive] = useState(false);
+    const [contactactive, setContactactive] = useState(false);
+    const [statacitve, setStatacitve] = useState(false);
 
 
 
     const [a, setA] = useState([])
     
+    const headerbutton = useRef();
+    const introbutton = useRef();
+    const skillbutton = useRef();
+    const contactbutton = useRef();
+    const statbutton = useRef();
+
+
     const ref = useRef();
     const ref1 = useRef();
     const ref2= useRef();
     const ref3= useRef();
+    const ref4= useRef();
 
-    const ref6= useRef();
 
 
 
@@ -79,11 +115,63 @@ export default function SecondStep() {
     `
     const skilldefault = `<h2> 🛠️ Tech Stacks </h2> <br> <div> ${badge}</div>
     `
-    const contactdefault = `<h2> 🧑‍💻 Contact me </h2> <br> <div> ${contactbadge} </div>
+    const contactdefault = `<h2> 🧑‍💻 Contact me </h2> <br> <div> ${contactbadge} </div>  <br> ${hitbadge}
     `
-    const introductiondefault = `<h2> ${introductionheader} </h2> <br> <div> 
+    const introductiondefault = `<h2> ${introductionheader} </h2>  <div style="font-weight: 700; font-size: 15px"> 
     ${introduction} </div>
     `
+    const statdefault = `<h2> 🏅 Stats </h2> <div> ${stats} ${mostlanguage} </div>
+    `
+
+    const headerdesignactive  = () => {
+        if(headeractive === false){
+            setHeaderactive(true);
+            headerbutton.current.src = uppng;
+        }else{
+            setHeaderactive(false);
+            headerbutton.current.src = downpng;
+        }
+    }
+
+    const skilldesignactive  = () => {
+        if(skillactive === false){
+            setSkillactive(true);
+            skillbutton.current.src = uppng;
+        }else{
+            setSkillactive(false);
+            skillbutton.current.src = downpng;
+        }
+    }
+
+    const contactdesignactive  = () => {
+        if(contactactive === false){
+            setContactactive(true);
+           contactbutton.current.src = uppng;
+        }else{
+            setContactactive(false);
+            contactbutton.current.src = downpng;
+        }
+    }
+
+    const introducedesignactive  = () => {
+        if(introactive === false){
+            setIntroactive(true);
+            introbutton.current.src = uppng;
+        }else{
+            setIntroactive(false);
+            introbutton.current.src = downpng;
+        }
+    }
+
+    const statdesignactive  = () => {
+        if(statacitve === false){
+            setStatacitve(true);
+            statbutton.current.src = uppng;
+        }else{
+            setStatacitve(false);
+            statbutton.current.src = downpng;
+        }
+    }
 
 
     useEffect(() => {
@@ -118,20 +206,30 @@ export default function SecondStep() {
             ref.current.getInstance().setMarkdown("");
             setValue(prev => ({...prev, introduce: introductiondefault}))
         }else{
-            setValue(prev => ({...prev, contactintroduce: ""}))
+            setValue(prev => ({...prev, introduce: ""}))
         }
     }, [introductiondefault])
+
+    useEffect(() => {
+        if(statschecked){
+            ref.current.getInstance().setMarkdown("");
+            setValue(prev => ({...prev, stat: statdefault}))
+        }else{
+            setValue(prev => ({...prev, stat: ""}))
+        }
+    }, [statdefault]);
 
 
 
     useEffect(() => {
         let copy = [...a];
         copy[0] = value.header;
-        copy[1] = value.skill;
-        copy[2] = value.contact;
-        copy[3] = value.introduce;
+        copy[1] = value.introduce;
+        copy[2] = value.skill;
+        copy[3] = value.contact; 
+        copy[4] = value.stat;
         setA(copy);
-}, [value.header, value.skill, value.contact, value.introduce])
+}, [value.header, value.skill, value.contact, value.introduce, value.stat])
 
     useEffect(() => {
         ref.current.getInstance().setMarkdown("");
@@ -144,7 +242,7 @@ export default function SecondStep() {
         ref1.current.getInstance().setMarkdown(a[1]);
         ref2.current.getInstance().setMarkdown(a[2]);
         ref3.current.getInstance().setMarkdown(a[3]);
-        // ref6.current.getInstance().setMarkdown(b);
+        ref4.current.getInstance().setMarkdown(a[4]);
         }
     , [a])
 
@@ -155,7 +253,7 @@ export default function SecondStep() {
 
     const setheadercolor = (e) => {
         if(e.target.name === "setcolor"){
-            
+
             setColor(e.target.value.slice(1));
         }else if(e.target.name === "setcolorgradient1"){
             // eslint-disable-next-line no-const-assign
@@ -216,6 +314,10 @@ export default function SecondStep() {
         setContactBadge(b);
     }
 
+    const setGithubhitbadge = (b) => {
+        setHitBadge(b);
+    }
+
     //자기소개하는 함수
     const setMyintroheader = (c) => {
         setIntroductionheader(c);
@@ -224,31 +326,69 @@ export default function SecondStep() {
     const setMyintro = (c) => {
         setIntroduction(c);
     }
+
+    //Stat, most used language 함수
+    const setgithubstats = (c) => {
+        setStats(c);
+    }
+
+    const setmostusedlanguage = (c) => {
+        setMostlanguage(c);
+    }
+
     
   return (
     <Wrapper>
                 {/* 선택지 */}
                 <SelectWrapper>
                    {headerchecked&&
+                        <>  
+                            <Topheader onClick={headerdesignactive}>🎈  Header Design <Downimg ref={headerbutton} src={downpng} alt='아래버튼'/> </Topheader> 
+                            {headeractive&&
+                                <HeadertypeWrapper>
+                                <HeaderCheck setheadertype={setheadertype}/>
+                                <HeaderColor setheadercolor={setheadercolor}/>
+                                <HeaderHeight setheaderheight={setheaderheight}/>
+                                <HeaderText setheadertext={setheadertext}/>
+                                <HeaderTextAni setheadertextanimation={setheadertextanimation}/>
+                                <HeaderTextColor setheadertextcolor={setheadertextcolor}/>
+                                <HeaderTextSize setheadertextsize={setheadertextsize}/>
+                                {/* <HeaderTextAlign setheadertextalign={setheadertextalign}/> */}
+                            </HeadertypeWrapper>}
+                        </>
+                   }
+                   {introductionchecked&&
                         <>
-                            <HeaderCheck setheadertype={setheadertype}/>
-                            <HeaderColor setheadercolor={setheadercolor}/>
-                            <HeaderHeight setheaderheight={setheaderheight}/>
-                            <HeaderText setheadertext={setheadertext}/>
-                            <HeaderTextAni setheadertextanimation={setheadertextanimation}/>
-                            <HeaderTextColor setheadertextcolor={setheadertextcolor}/>
-                            <HeaderTextSize setheadertextsize={setheadertextsize}/>
-                            <HeaderTextAlign setheadertextalign={setheadertextalign}/>
+                            <Topheader onClick={introducedesignactive}>🙌  Introduction Design <Downimg ref={introbutton} src={downpng} alt='아래버튼'/> </Topheader> 
+                            {introactive&&
+                            <Introduction setMyintroheader={setMyintroheader} setMyintro={setMyintro}/>
+                            }
                         </>
                    }
                    {skillstackschecked&&
-                        <BadgeSelect setAllBadge={setAllBadge} setBadgestyle={setBadgestyle}/>
+                        <>
+                            <Topheader onClick={skilldesignactive}>🛠️ Skill Stack Design <Downimg ref={skillbutton} src={downpng} alt='아래버튼'/> </Topheader> 
+                            {skillactive&&
+                            <BadgeSelect setAllBadge={setAllBadge} setBadgestyle={setBadgestyle}/>
+                            }
+                        </>
+                        
                    }
                    {contactchecked&&
-                        <ContactBadgeSelect setContactAllBadge={setContactAllBadge} badgestyle={badgestyle}/>
+                        <>
+                            <Topheader onClick={contactdesignactive}>🧑‍💻  Contact Design <Downimg ref={contactbutton} src={downpng} alt='아래버튼'/> </Topheader> 
+                            {contactactive&&
+                            <ContactBadgeSelect setContactAllBadge={setContactAllBadge} badgestyle={badgestyle} setGithubhitbadge={setGithubhitbadge} username={username} />
+                            }
+                        </> 
                    }
-                   {introductionchecked&&
-                        <Introduction setMyintroheader={setMyintroheader} setMyintro={setMyintro}/>
+                   {statschecked&&
+                        <>
+                            <Topheader onClick={statdesignactive} >🏅  Stat Design <Downimg ref={statbutton} src={downpng} alt='아래버튼'/> </Topheader> 
+                            {statacitve&&
+                            <Stat setgithubstats={setgithubstats} setmostusedlanguage={setmostusedlanguage} username={username}/>
+                            }
+                        </>      
                    }
                 </SelectWrapper >
                 {/* 미리보기 */}
@@ -259,6 +399,7 @@ export default function SecondStep() {
                          <Viewer ref={ref1}/> 
                          <Viewer ref={ref2}/> 
                          <Viewer ref={ref3}/> 
+                         <Viewer ref={ref4}/> 
                     
                    
                 </PreviewShow>
