@@ -9,7 +9,6 @@ import HeaderText from '../components/HeaderText';
 import HeaderTextAni from '../components/HeaderTextAni';
 import HeaderTextColor from '../components/HeaderTextColor';
 import HeaderTextSize from '../components/HeaderTextSize';
-import HeaderTextAlign from '../components/HeaderTextAlign';
 import BadgeSelect from '../components/BadgeSelect';
 import ContactBadgeSelect from '../components/ContactBadgeSelect'
 import Introduction from '../components/Introduction';
@@ -25,18 +24,20 @@ const Wrapper = styled.div`
 
 const PreviewShow = styled.div`
     width: 100%;
-    height: 70em;
-    padding-left: 40px;
+    height: 60em;
+    padding-left: 30px;
 `
 
 const SelectWrapper = styled.div`
     width: 60%;
     border-right: 2px solid black;
-    padding-right:10px;
+    padding-right:15px;
+    padding-left: 15px;
 `
 
 const Topheader = styled.h2`
     position: relative;
+    cursor: pointer;
 `
 const Downimg = styled.img`
     width: 25px;
@@ -181,7 +182,7 @@ export default function SecondStep() {
         }else{
             setValue(prev => ({...prev, header: ""}))
         }
-    }, [headerdefault])
+    }, [headerdefault, headeractive])
 
     useEffect(() => {
         if(skillstackschecked){
@@ -361,7 +362,9 @@ export default function SecondStep() {
                         <>
                             <Topheader onClick={introducedesignactive}>🙌  Introduction Design <Downimg ref={introbutton} src={downpng} alt='아래버튼'/> </Topheader> 
                             {introactive&&
+                            <HeadertypeWrapper>
                             <Introduction setMyintroheader={setMyintroheader} setMyintro={setMyintro}/>
+                            </HeadertypeWrapper>
                             }
                         </>
                    }
@@ -369,7 +372,9 @@ export default function SecondStep() {
                         <>
                             <Topheader onClick={skilldesignactive}>🛠️ Skill Stack Design <Downimg ref={skillbutton} src={downpng} alt='아래버튼'/> </Topheader> 
                             {skillactive&&
+                            <HeadertypeWrapper>
                             <BadgeSelect setAllBadge={setAllBadge} setBadgestyle={setBadgestyle}/>
+                            </HeadertypeWrapper>
                             }
                         </>
                         
@@ -378,7 +383,9 @@ export default function SecondStep() {
                         <>
                             <Topheader onClick={contactdesignactive}>🧑‍💻  Contact Design <Downimg ref={contactbutton} src={downpng} alt='아래버튼'/> </Topheader> 
                             {contactactive&&
+                            <HeadertypeWrapper>
                             <ContactBadgeSelect setContactAllBadge={setContactAllBadge} badgestyle={badgestyle} setGithubhitbadge={setGithubhitbadge} username={username} />
+                            </HeadertypeWrapper>
                             }
                         </> 
                    }
@@ -386,7 +393,9 @@ export default function SecondStep() {
                         <>
                             <Topheader onClick={statdesignactive} >🏅  Stat Design <Downimg ref={statbutton} src={downpng} alt='아래버튼'/> </Topheader> 
                             {statacitve&&
+                            <HeadertypeWrapper>
                             <Stat setgithubstats={setgithubstats} setmostusedlanguage={setmostusedlanguage} username={username}/>
+                            </HeadertypeWrapper>
                             }
                         </>      
                    }

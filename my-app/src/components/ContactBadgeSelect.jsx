@@ -1,6 +1,11 @@
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import { useRef, useState, useEffect } from 'react';
+import {Checkboxinput, Typeheader, Selectwrapper} from '../components/style';
+import styled from 'styled-components';
 
+const Urlinput = styled.input`
+  margin-left: 10px;  
+`
 export default function HeaderColor(props) {
   const colorArr = {"Facebook" : "1877F2", 
   "Instagram": "E4405F",
@@ -61,25 +66,32 @@ const changeurl = (e) => {
 }
 
   return (
-    <>
-                    <h3>본인을 나타내고 연락할 수 있는 방법을 모두 선택해주세요.</h3>
+    <Selectwrapper>
+                    <Typeheader>1. 본인을 나타내고 연락할 수 있는 방법을 모두 선택해주세요.</Typeheader>
                     <div ref={inputref}>
-                      <input type="checkbox" name="Facebook"  onClick={(e) => {cancelcheck(e)}}/>Facebook
-                      {checkArr.Facebook ? <input type="text" name="Facebook" placeholder='Facebook url 입력' onChange={changeurl}/> : null}
-                      <input type="checkbox"  name="Instagram" onClick={(e) => {cancelcheck(e)}}/>Instagram
-                      {checkArr.Instagram ? <input type="text" name="Instagram" placeholder='Instagram url 입력' onChange={changeurl}/> : null}
-                      <input type="checkbox"  name="Velog" onClick={(e) => {cancelcheck(e)}}/>Velog
-                      {checkArr.Velog ? <input type="text" name="Velog" placeholder='Velog url 입력' onChange={changeurl}/> : null}
-                      <input type="checkbox" name="Naver" onClick={(e) => {cancelcheck(e)}}/>Naver blog
-                      {checkArr.Naver ? <input type="text" name = "Naver" placeholder='Naver blog url 입력' onChange={changeurl}/> : null}
-                      <input type="checkbox" name="Tistory" onClick={(e) => {cancelcheck(e)}}/>Tistory
-                      {checkArr.Tistory ? <input type="text" name="Tistory" placeholder='Tistory url 입력' onChange={changeurl}/> : null}
-                      <input type="checkbox" name="Notion" onClick={(e) => {cancelcheck(e)}}/>Notion
-                      {checkArr.Notion ? <input type="text" name="Notion" placeholder='Notion url 입력' onChange={changeurl}/> : null}
-                      <input type="checkbox" name="Gmail" onClick={(e) => {cancelcheck(e)}}/>Gmail
-                      {checkArr.Gmail ? <input type="text" name="Gmail" placeholder='Gmail url 입력' onChange={changeurl}/> : null}
+                      <Checkboxinput type="checkbox" name="Facebook"  onClick={(e) => {cancelcheck(e)}}/>Facebook
+                      {checkArr.Facebook ? <Urlinput type="text" name="Facebook" placeholder='Facebook url 입력' onChange={changeurl}/> : null}
+                      <br></br>
+                      <Checkboxinput type="checkbox"  name="Instagram" onClick={(e) => {cancelcheck(e)}}/>Instagram
+                      {checkArr.Instagram ? <Urlinput type="text" name="Instagram" placeholder='Instagram url 입력' onChange={changeurl}/> : null}
+                      <br></br>
+                      <Checkboxinput type="checkbox"  name="Velog" onClick={(e) => {cancelcheck(e)}}/>Velog
+                      {checkArr.Velog ? <Urlinput type="text" name="Velog" placeholder='Velog url 입력' onChange={changeurl}/> : null}
+                      <br></br>
+                      <Checkboxinput type="checkbox" name="Naver" onClick={(e) => {cancelcheck(e)}}/>Naver blog
+                      {checkArr.Naver ? <Urlinput type="text" name = "Naver" placeholder='Naver blog url 입력' onChange={changeurl}/> : null}
+                      <br></br>
+                      <Checkboxinput type="checkbox" name="Tistory" onClick={(e) => {cancelcheck(e)}}/>Tistory
+                      {checkArr.Tistory ? <Urlinput type="text" name="Tistory" placeholder='Tistory url 입력' onChange={changeurl}/> : null}
+                      <br></br>
+                      <Checkboxinput type="checkbox" name="Notion" onClick={(e) => {cancelcheck(e)}}/>Notion
+                      {checkArr.Notion ? <Urlinput type="text" name="Notion" placeholder='Notion url 입력' onChange={changeurl}/> : null}
+                      <br></br>
+                      <Checkboxinput type="checkbox" name="Gmail" onClick={(e) => {cancelcheck(e)}}/>Gmail
+                      {checkArr.Gmail ? <Urlinput type="text" name="Gmail" placeholder='Gmail url 입력' onChange={changeurl}/> : null}
+
                     </div >
-                    <input type="checkbox" name="githubbadge"  onClick={(e) => {cancelcheck(e)}}/>Github 방문자수 뱃지
-                </>
+                    <Checkboxinput type="checkbox" name="githubbadge"  onClick={(e) => {cancelcheck(e)}}/>Github 방문자수 뱃지
+                </Selectwrapper>
   )
 }

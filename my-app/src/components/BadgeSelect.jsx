@@ -23,6 +23,12 @@ const Inputwrap = styled.div`
   display: inline-block;
 `
 
+const CategoryWrap = styled.div`
+  margin: 5px;
+    margin-right: 10px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+`
 export default function HeaderColor(props) {
   const colorArr = {"Amazon S3" : "569A31", 
   "Android": "3DDC84",
@@ -285,12 +291,14 @@ export default function HeaderColor(props) {
   return (
     <Selectwrapper>
                     <Typeheader>1. 본인이 보유한 기술 스택을 모두 선택해주세요.</Typeheader>
-                    <Categorybutton style={{"background-color": "#ee8383", "padding": "5px, 10px"}} name='a' onClick={filteralphabet}>A - G</Categorybutton>
-                    <Categorybutton style={{"background-color": "#fadd7e"}} name='h' onClick={filteralphabet}>H - N</Categorybutton>
-                    <Categorybutton style={{"background-color": "#96f07b"}} name='o' onClick={filteralphabet}>O - U</Categorybutton>
-                    <Categorybutton style={{"background-color": "#83a5ee"}} name='v' onClick={filteralphabet}>V - Z</Categorybutton>
-                    <Categorybutton style={{"background-color": "#af83ee"}} name='all' onClick={filteralphabet}>전체</Categorybutton>
-                    <Categorybutton style={{"background-color": "#ee83d7"}} onClick={resetCheck}>초기화</Categorybutton>
+                   <CategoryWrap>
+                      <Categorybutton style={{"background-color": "#ee8383", "padding": "5px, 10px"}} name='a' onClick={filteralphabet}>A - G</Categorybutton>
+                      <Categorybutton style={{"background-color": "#fadd7e"}} name='h' onClick={filteralphabet}>H - N</Categorybutton>
+                      <Categorybutton style={{"background-color": "#96f07b"}} name='o' onClick={filteralphabet}>O - U</Categorybutton>
+                      <Categorybutton style={{"background-color": "#83a5ee"}} name='v' onClick={filteralphabet}>V - Z</Categorybutton>
+                      <Categorybutton style={{"background-color": "#af83ee"}} name='all' onClick={filteralphabet}>전체</Categorybutton>
+                      <Categorybutton style={{"background-color": "#ee83d7"}} onClick={resetCheck}>초기화</Categorybutton>
+                   </CategoryWrap>
                     
                       <BadgeWrap>{abc}</BadgeWrap>
                       
