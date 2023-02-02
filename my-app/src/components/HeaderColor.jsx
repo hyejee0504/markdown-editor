@@ -10,8 +10,9 @@ export default function HeaderColor(props) {
     }
     e.target.checked = true;
     props.setheadercolor(e);
-
   }
+
+  
   return (
     <Selectwrapper>
                     <Typeheader>2. Color</Typeheader>
@@ -22,12 +23,12 @@ export default function HeaderColor(props) {
                       <br></br>
                       <Checkboxinput type="checkbox" name="gradient" onClick={(e) => {cancelcheck(e)}}/>Gradient : 검증된 무작위 그라데이션
                       <br></br>
-                      <Checkboxinput type="color" name="setcolor" onClick={(e) => {cancelcheck(e)}}/>사용자 정의 단색
+                      <Checkboxinput type="color" name="setcolor" onChange={(e) => {cancelcheck(e)}}/>사용자 정의 단색
                       <br></br>
                       <p style={{margin : "5px 0px","margin-top":"10px", "font-weight" : "600"}}>✨ 그라데이션은 두 컬러를 골라야합니다.</p>
-                      <Checkboxinput type="color" name="setcolorgradient1" onClick={(e) => {cancelcheck(e)}}/>사용자 정의 그라데이션 1
+                      <Checkboxinput type="color" name="setcolorgradient1" onChange={(e) => {cancelcheck(e)}}/>사용자 정의 그라데이션 1
                       <br></br>
-                      <Checkboxinput type="color" name="setcolorgradient2" onClick={(e) => {cancelcheck(e)}}/>사용자 정의 그라데이션 2
+                      <Checkboxinput type="color" name="setcolorgradient2" onChange={(e) => {cancelcheck(e)}}/>사용자 정의 그라데이션 2
                       
                       
                     </ div>

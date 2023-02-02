@@ -1,6 +1,7 @@
 import {React, useState, useRef, useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
 import { Viewer } from '@toast-ui/react-editor';
+import '../pages/style.css';
 import styled from "styled-components";
 import HeaderCheck from '../components/HeaderType';
 import HeaderColor from "../components/HeaderColor";
@@ -13,19 +14,26 @@ import BadgeSelect from '../components/BadgeSelect';
 import ContactBadgeSelect from '../components/ContactBadgeSelect'
 import Introduction from '../components/Introduction';
 import Stat from '../components/Stat';
+import Align from '../components/Align';
 
 import downpng from '../asset/icon-down-arrow.png';
 import uppng from '../asset/icon-up-arrow.png';
 
+import useCopyClipBoard from '../components/useCopyClipBoard';
+
 const Wrapper = styled.div`
     display: flex;
     width: 100%;
+    
 `
 
 const PreviewShow = styled.div`
     width: 100%;
     height: 60em;
     padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `
 
 const SelectWrapper = styled.div`
@@ -33,6 +41,7 @@ const SelectWrapper = styled.div`
     border-right: 2px solid black;
     padding-right:15px;
     padding-left: 15px;
+    position: relative;
 `
 
 const Topheader = styled.h2`
@@ -50,6 +59,27 @@ const Downimg = styled.img`
 const HeadertypeWrapper = styled.div`
     margin-left: 20px;
 `
+
+const Completebutton = styled.button`
+font-family: 'Baloo Paaji', cursive;
+    width: 180px;
+    height: 80px;
+    font-size: 30px;
+    border: 0;
+    border-radius: 40px;
+    background-color: #ffd875;
+    color: #000000;
+    cursor: pointer;
+    /* position: absolute; */
+    bottom: 50px;
+    right: 100px;
+    z-index: 2;
+    :hover{
+    background-color: #6a9eff;}
+    /* display: float; */
+    text-align: center;
+    margin-top: 30px;
+`;
 
 export default function SecondStep() {
 
@@ -76,22 +106,29 @@ export default function SecondStep() {
 
     const [stats, setStats] = useState("");
     const [mostlanguage, setMostlanguage] = useState("");
+
+    const [allalign, setAllalign] = useState("left");
+    const [align, setAlign] = useState("left");
+    const [badgealign, setBadgealign] = useState("");
     
     const [headeractive, setHeaderactive] = useState(false);
     const [introactive, setIntroactive] = useState(false);
     const [skillactive, setSkillactive] = useState(false);
     const [contactactive, setContactactive] = useState(false);
-    const [statacitve, setStatacitve] = useState(false);
+    const [statactive, setStatactive] = useState(false);
+    const [alignacitve, setAlignacitve] = useState(false);
 
 
 
-    const [a, setA] = useState([])
+    const [a, setA] = useState([]);
+    const [completetext, setCompletetext] = useState("");
     
     const headerbutton = useRef();
     const introbutton = useRef();
     const skillbutton = useRef();
     const contactbutton = useRef();
     const statbutton = useRef();
+    const alignbutton = useRef();
 
 
     const ref = useRef();
@@ -114,14 +151,14 @@ export default function SecondStep() {
 
     const headerdefault = `![header](https://capsule-render.vercel.app/api?type=${headertyped}&color=${color}&height=${height}&text=${text}&animation=${textanimation}&fontColor=${fontcolor}&fontSize=${fontsize}&fontAlign=${fontalign})
     `
-    const skilldefault = `<h2> 🛠️ Tech Stacks </h2> <br> <div> ${badge}</div>
+    const skilldefault = `<div style="text-align: ${allalign};"><h2> 🛠️ Tech Stacks </h2> <br> <div style="width: 600px; text-align: ${align}; margin: ${badgealign};"> ${badge}</div></div>
     `
-    const contactdefault = `<h2> 🧑‍💻 Contact me </h2> <br> <div> ${contactbadge} </div>  <br> ${hitbadge}
+    const contactdefault = `<div style="text-align: ${allalign};"><h2> 🧑‍💻 Contact me </h2> <br> <div style="text-align: ${align};"> ${contactbadge} </div>  <br> <div style="text-align: ${align};"> ${hitbadge} </div> </div>
     `
-    const introductiondefault = `<h2> ${introductionheader} </h2>  <div style="font-weight: 700; font-size: 15px"> 
-    ${introduction} </div>
+    const introductiondefault = `<div style="text-align: ${allalign};"> <h2> ${introductionheader} </h2>  <div style="font-weight: 700; font-size: 15px; text-align: ${align};"> 
+    ${introduction} </div> </div>
     `
-    const statdefault = `<h2> 🏅 Stats </h2> <div> ${stats} ${mostlanguage} </div>
+    const statdefault = `<div style="text-align: ${allalign};"> <h2> 🏅 Stats </h2> <div style="text-align: ${align};"> ${stats} ${mostlanguage} </div> </div>
     `
 
     const headerdesignactive  = () => {
@@ -165,12 +202,22 @@ export default function SecondStep() {
     }
 
     const statdesignactive  = () => {
-        if(statacitve === false){
-            setStatacitve(true);
+        if(statactive === false){
+            setStatactive(true);
             statbutton.current.src = uppng;
         }else{
-            setStatacitve(false);
+            setStatactive(false);
             statbutton.current.src = downpng;
+        }
+    }
+
+    const aligndesignactive  = () => {
+        if(alignacitve === false){
+            setAlignacitve(true);
+            alignbutton.current.src = uppng;
+        }else{
+            setAlignacitve(false);
+            alignbutton.current.src = downpng;
         }
     }
 
@@ -238,12 +285,14 @@ export default function SecondStep() {
         for (var i in a){
             b += a[i];
         }
+        
         ref.current.getInstance().setMarkdown("");
         ref.current.getInstance().setMarkdown(a[0]);
         ref1.current.getInstance().setMarkdown(a[1]);
         ref2.current.getInstance().setMarkdown(a[2]);
         ref3.current.getInstance().setMarkdown(a[3]);
         ref4.current.getInstance().setMarkdown(a[4]);
+        setCompletetext(b);
         }
     , [a])
 
@@ -298,10 +347,6 @@ export default function SecondStep() {
     const setheadertextsize = (e) => {
         setFontsize(e.target.name);
     }
-
-    const setheadertextalign = (e) => {
-        setFontalign(e.target.name);
-    }
     
     //기술스택 함수
 
@@ -336,6 +381,25 @@ export default function SecondStep() {
     const setmostusedlanguage = (c) => {
         setMostlanguage(c);
     }
+
+    //align 함수
+    const setallalign = (a) => {
+        setAllalign(a)
+    }
+
+    const setalign = (a) => {
+        setAlign(a)
+    }
+
+    const setbadgealign = (a) => {
+        setBadgealign(a)
+    }
+
+    const [isCopy, onCopy] = useCopyClipBoard();
+
+  const handleCopyClipBoard = (text) => {
+    onCopy(text);
+  };
 
     
   return (
@@ -392,29 +456,41 @@ export default function SecondStep() {
                    {statschecked&&
                         <>
                             <Topheader onClick={statdesignactive} >🏅  Stat Design <Downimg ref={statbutton} src={downpng} alt='아래버튼'/> </Topheader> 
-                            {statacitve&&
+                            {statactive&&
                             <HeadertypeWrapper>
                             <Stat setgithubstats={setgithubstats} setmostusedlanguage={setmostusedlanguage} username={username}/>
                             </HeadertypeWrapper>
                             }
                         </>      
                    }
+                   <>
+                            <Topheader onClick={aligndesignactive} >💡  Align Design <Downimg ref={alignbutton} src={downpng} alt='아래버튼'/> </Topheader> 
+                            {alignacitve&&
+                            <HeadertypeWrapper>
+                            <Align setallalign={setallalign} setalign={setalign} setbadgealign={setbadgealign}/>
+                            </HeadertypeWrapper>
+                            }
+                        </>  
+                        
                 </SelectWrapper >
                 {/* 미리보기 */}
                 <PreviewShow>
-                    <h2>미리보기</h2>
+                    <div>
+                        <h2>미리보기</h2>
+                        
+                             <Viewer ref={ref}/> 
+                             <Viewer ref={ref1}/> 
+                             <Viewer ref={ref2}/> 
+                             <Viewer ref={ref3}/> 
+                             <Viewer ref={ref4}/> 
+                    </div>
                     
-                         <Viewer ref={ref}/> 
-                         <Viewer ref={ref1}/> 
-                         <Viewer ref={ref2}/> 
-                         <Viewer ref={ref3}/> 
-                         <Viewer ref={ref4}/> 
-                    
-                   
+                         <Completebutton onClick={() => handleCopyClipBoard(completetext)}>Copy code!</Completebutton>
                 </PreviewShow>
                 {/* <Editor ref={ref6} initialValue={valuechecked}/> */}
-
+                
             </Wrapper>
+           
         
   )
 }

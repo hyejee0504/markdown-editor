@@ -17,6 +17,7 @@ export default function HeaderColor(props) {
     <Selectwrapper>
                     <Typeheader>5. Text Animation</Typeheader>
                     <div ref={inputref}>
+                    <Checkboxinput type="checkbox" name="" onClick={(e) => {cancelcheck(e)}}/>없음
                       <Checkboxinput type="checkbox" name="fadeIn" onClick={(e) => {cancelcheck(e)}}/>FadeIn
                       <Checkboxinput type="checkbox"  name="scaleIn" onClick={(e) => {cancelcheck(e)}}/>ScaleIn
                       <Checkboxinput type="checkbox" name="blink" onClick={(e) => {cancelcheck(e)}}/>Blink

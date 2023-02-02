@@ -82,15 +82,15 @@ const changebgcolor = (e) =>{
 
 useEffect(()=>{
   props.setgithubstats(`<img src="https://github-readme-stats.vercel.app/api?username=${props.username}&custom_title=${props.username+"'s Github Stat"}&bg_color=${gradient},${color},${color2}&title_color=${textcolor}&text_color=${textcolor}"
-        // />`);
+         />`);
         props.setmostusedlanguage(`<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=${props.username}&layout=compact&bg_color=${gradient},${color},${color2}&title_color=${textcolor}&text_color=${textcolor}"
-          // />`);
+           />`);
 
 }, [color, textcolor, gradient, color2])
 
   return (
     <Selectwrapper>
-                    <h3>1. 추가할 부분을 선택하세요. </h3>
+                    <Typeheader>1. 추가할 부분을 선택하세요. </Typeheader>
                     <div>
                       <Checkboxinput type="checkbox" name="stat"  onClick={(e) => {cancelcheck(e)}}/>Github Stat
                       <Checkboxinput type="checkbox"  name="language" onClick={(e) => {cancelcheck(e)}}/>Most used language

@@ -1,17 +1,28 @@
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import {Checkboxinput, Typeheader, Selectwrapper} from '../components/style';
 
 export default function HeaderColor(props) {
+  const [name, setName] = useState("");
   const inputref = useRef();
   const cancelcheck = (e) => {
     for(var i = 0; i < 4; i+=2){
       inputref.current.childNodes[i].checked = false;
     }
     e.target.checked = true;
+    setName(e.target.name);
     props.setheadertextcolor(e);
-
   }
+
+  useEffect(() => {
+    for(var i = 0; i < 4; i+=1){
+      if(inputref.current.childNodes[i].name === name){
+        inputref.current.childNodes[i].checked = true;
+      }  
+    }
+  }, [name])
+
+
   return (
     <Selectwrapper>
                     <Typeheader>6. Text Color</Typeheader>

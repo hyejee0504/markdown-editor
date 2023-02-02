@@ -18,6 +18,7 @@ const BadgeWrap = styled.div`
      margin: 5px;
     margin-right: 10px;
     margin-left: 10px;
+    /* width: 100px; */
 `
 const Inputwrap = styled.div`
   display: inline-block;
@@ -116,7 +117,6 @@ export default function HeaderColor(props) {
 
   const cancelcheck = (e) => {
     if(e.target.checked){
-      console.log(e.target.checked);
       setBadgeArr(badgeArr => [...badgeArr, e.target.name]);
       e.target.checked = true;
     }else{
@@ -124,8 +124,6 @@ export default function HeaderColor(props) {
       e.target.checked = false;
     }
   }
-
-  console.log(badgeArr);
 
   let allbadge = [];
   for(var i in colorArr){
@@ -135,10 +133,6 @@ export default function HeaderColor(props) {
       </Inputwrap>
     )
   }
-
-  console.log(allbadge);
-
-
 
   const stylecheck = (e) => {
     for(var i = 0; i < 10; i+=2){
