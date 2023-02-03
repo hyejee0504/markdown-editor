@@ -112,7 +112,7 @@ export default function HeaderColor(props) {
   const [badgeArr, setBadgeArr] = useState([]);
   const [alphabet, setAlphabet] = useState("");
   const [style, setStyle] = useState("for-the-badge");
-  const inputref = useRef();
+  // const inputref = useRef();
   const inputref1 = useRef();
 
   const cancelcheck = (e) => {
@@ -170,6 +170,7 @@ export default function HeaderColor(props) {
       
     }
     props.setAllBadge(badgeText);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [badgeArr, style])
 
   const filteralphabet = (e) => {
@@ -278,6 +279,7 @@ export default function HeaderColor(props) {
           }
     }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [alphabet, badgeArr])
 
   

@@ -41,8 +41,6 @@ export default function HeaderColor(props) {
                       <Checkboxinput type="color" name="setcolorgradient1" onChange={(e) => {cancelcheck(e)}}/>사용자 정의 그라데이션 1
                       <br></br>
                       <Checkboxinput type="color" name="setcolorgradient2" onChange={(e) => {cancelcheck(e)}}/>사용자 정의 그라데이션 2
-                      
-                      
                     </ div>
                 </Selectwrapper>
   )

@@ -59,6 +59,7 @@ export default function HeaderColor(props) {
       }
     }
     props.setContactAllBadge(badgeText);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [badgeArr, linkArr, props.badgestyle])
 
 const changeurl = (e) => {

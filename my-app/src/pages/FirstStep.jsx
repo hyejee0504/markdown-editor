@@ -8,7 +8,6 @@ import intro from '../asset/intro.png';
 import skill from '../asset/skill.png';
 import contact from '../asset/contact.png';
 import stat from '../asset/stat.svg';
-import language from '../asset/language.svg';
 
 const Nextbutton = styled.button`
     width: 150px;

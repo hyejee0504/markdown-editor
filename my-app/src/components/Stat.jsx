@@ -11,9 +11,6 @@ export default function HeaderColor(props) {
   const ref1 = useRef();
   const ref2 = useRef();
 
- 
-  
-
   const cancelcheck = (e) => {
 
     if(e.target.name === "stat"){
@@ -80,6 +77,7 @@ useEffect(()=>{
         props.setmostusedlanguage(`<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=${props.username}&layout=compact&bg_color=${gradient+","}${color}${","+color2}&title_color=${textcolor}&text_color=${textcolor}"
            />`);
 
+// eslint-disable-next-line react-hooks/exhaustive-deps
 }, [color, textcolor, gradient, color2])
 
 

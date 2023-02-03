@@ -1,6 +1,6 @@
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
 import { useRef } from 'react';
-import {Checkboxinput, Typeheader, Selectwrapper} from '../components/style';
+import {Typeheader, Selectwrapper} from '../components/style';
 
 export default function HeaderText(props) {
   const inputref = useRef();

@@ -138,9 +138,9 @@ export default function SecondStep() {
     const [textanimation, setTextanimation] = useState("");
     const [fontcolor, setFontcolor] = useState("000000");
     const [fontsize, setFontsize] = useState(70);
-    const [fontalign, setFontalign] = useState(50);
-    const [gradient1, setGradient1] = useState("");
-    const [gradient2, setGradient2] = useState("");
+    // const [fontalign, setFontalign] = useState(50);
+    // const [gradient1, setGradient1] = useState("");
+    // const [gradient2, setGradient2] = useState("");
 
     const [badge, setBadge] = useState("");
     const [badgestyle, setBadgestyle] = useState("for-the-badge");
@@ -206,7 +206,7 @@ export default function SecondStep() {
 
     const headerdefault = 
     `<div align= "center">
-    <img src="https://capsule-render.vercel.app/api?type=${headertyped}&color=${color}&height=${height}&text=${text}&animation=${textanimation}&fontColor=${fontcolor}&fontSize=${fontsize}&fontAlign=${fontalign}" />
+    <img src="https://capsule-render.vercel.app/api?type=${headertyped}&color=${color}&height=${height}&text=${text}&animation=${textanimation}&fontColor=${fontcolor}&fontSize=${fontsize}" />
     </div>
     `
     const skilldefault = 
@@ -302,6 +302,7 @@ export default function SecondStep() {
         }else{
             setValue(prev => ({...prev, header: ""}))
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [headerdefault, headeractive])
 
     useEffect(() => {
@@ -311,6 +312,7 @@ export default function SecondStep() {
         }else{
             setValue(prev => ({...prev, skill: ""}))
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [skilldefault])
 
     useEffect(() => {
@@ -320,6 +322,7 @@ export default function SecondStep() {
         }else{
             setValue(prev => ({...prev, contact: ""}))
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [contactdefault])
 
     useEffect(() => {
@@ -329,6 +332,7 @@ export default function SecondStep() {
         }else{
             setValue(prev => ({...prev, introduce: ""}))
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [introductiondefault])
 
     useEffect(() => {
@@ -338,6 +342,7 @@ export default function SecondStep() {
         }else{
             setValue(prev => ({...prev, stat: ""}))
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [statdefault]);
 
 
@@ -350,6 +355,7 @@ export default function SecondStep() {
         copy[3] = value.contact; 
         copy[4] = value.stat;
         setA(copy);
+// eslint-disable-next-line react-hooks/exhaustive-deps
 }, [value.header, value.skill, value.contact, value.introduce, value.stat])
 
     useEffect(() => {
@@ -448,6 +454,7 @@ export default function SecondStep() {
         setBadgealign(a)
     }
 
+    // eslint-disable-next-line no-unused-vars
     const [isCopy, onCopy] = useCopyClipBoard();
 
   const handleCopyClipBoard = (text) => {
