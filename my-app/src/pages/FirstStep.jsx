@@ -32,6 +32,7 @@ const Nextbutton = styled.button`
 const Eximg = styled.img`
     width: 400px;
     margin-left: 100px;
+    margin-bottom: 20px;
 `
 
 const SelectWrap = styled.div`

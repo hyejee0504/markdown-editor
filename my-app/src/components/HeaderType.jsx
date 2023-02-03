@@ -9,7 +9,7 @@ export default function HeaderType(props) {
       inputref.current.childNodes[i].checked = false;
     }
     e.target.checked = true;
-    props.setheadertype(e);
+    props.setheadertype(e.target.name);
 
   }
   return (

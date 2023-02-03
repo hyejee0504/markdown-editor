@@ -1,15 +1,27 @@
 import '@toast-ui/editor/dist/toastui-editor-viewer.css';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import {Checkboxinput, Typeheader, Selectwrapper} from '../components/style';
 
 export default function HeaderColor(props) {
+  const [gradient1, setGradient1] = useState("");
+  const [gradient2, setGradient2] = useState("");
   const inputref = useRef();
   const cancelcheck = (e) => {
     for(var i = 0; i < 15; i+=3){
       inputref.current.childNodes[i].checked = false;
     }
     e.target.checked = true;
-    props.setheadercolor(e);
+    if(e.target.name === "setcolor"){
+      props.setheadercolor(e.target.value.slice(1));
+  }else if(e.target.name === "setcolorgradient1"){
+      setGradient1(e.target.value.slice(1));
+  }else if(e.target.name === "setcolorgradient2"){
+      // eslint-disable-next-line no-const-assign
+      setGradient2(e.target.value.slice(1));
+      props.setheadercolor(`0:${gradient1},100:${gradient2}`);
+  }else{
+    props.setheadercolor(e.target.name);
+  }        
   }
 
   

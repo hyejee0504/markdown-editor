@@ -10,7 +10,7 @@ export default function HeaderColor(props) {
       inputref.current.childNodes[i].checked = false;
     }
     e.target.checked = true;
-    props.setheadertextanimation(e);
+    props.setheadertextanimation(e.target.name);
 
   }
   return (

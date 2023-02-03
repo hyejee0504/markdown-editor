@@ -1,6 +1,9 @@
 import {React, useState, useRef, useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
-import { Viewer } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
+import { Viewer} from '@toast-ui/react-editor';
+
 import '../pages/style.css';
 import styled from "styled-components";
 import HeaderCheck from '../components/HeaderType';
@@ -11,7 +14,7 @@ import HeaderTextAni from '../components/HeaderTextAni';
 import HeaderTextColor from '../components/HeaderTextColor';
 import HeaderTextSize from '../components/HeaderTextSize';
 import BadgeSelect from '../components/BadgeSelect';
-import ContactBadgeSelect from '../components/ContactBadgeSelect'
+import ContactBadgeSelect from '../components/ContactBadgeSelect';
 import Introduction from '../components/Introduction';
 import Stat from '../components/Stat';
 import Align from '../components/Align';
@@ -24,21 +27,12 @@ import useCopyClipBoard from '../components/useCopyClipBoard';
 const Wrapper = styled.div`
     display: flex;
     width: 100%;
-    
 `
 
-const PreviewShow = styled.div`
-    width: 100%;
-    height: 60em;
-    padding-left: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`
 
 const SelectWrapper = styled.div`
     width: 60%;
-    border-right: 2px solid black;
+    
     padding-right:15px;
     padding-left: 15px;
     position: relative;
@@ -63,25 +57,78 @@ const HeadertypeWrapper = styled.div`
 const Completebutton = styled.button`
 font-family: 'Baloo Paaji', cursive;
     width: 180px;
-    height: 80px;
+    /* height: 40px; */
     font-size: 30px;
     border: 0;
     border-radius: 40px;
     background-color: #ffd875;
     color: #000000;
     cursor: pointer;
-    /* position: absolute; */
-    bottom: 50px;
-    right: 100px;
+    position: absolute;
+    top: 0px;
+    right: 20px;
     z-index: 2;
     :hover{
     background-color: #6a9eff;}
-    /* display: float; */
+    display: inline-block;
     text-align: center;
     margin-top: 30px;
 `;
 
+const Topbutton = styled.button`
+    font-family: 'Baloo Paaji', cursive;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    position: fixed;
+    bottom: 20px;  
+    right: 30px;
+    font-size: 25px;
+    border: 0;
+    background-color: #6a9eff;
+    :hover{
+    background-color: #ffd875}
+    cursor: pointer;
+    box-shadow: 12px 12px 2px 1px #c4c4c833;
+    z-index: 50;
+`;
+
+const PreviewShow = styled.div`
+    width: 100%;
+    /* height: 60em; */
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    border-left: 2px solid black;
+    background-color: ${props => props.bgColor};
+`
+const Darkbutton = styled.button`
+    font-family: 'Baloo Paaji', cursive;
+    width: 180px;
+    /* height: 40px; */
+    font-size: 30px;
+    border: 0;
+    border-radius: 40px;
+    background-color: #ffd875;
+    color: #000000;
+    cursor: pointer;
+    position: absolute;
+    top: 0px;
+    right: 230px;
+    z-index: 2;
+    :hover{
+    background-color: #6a9eff;}
+    display: inline-block;
+    text-align: center;
+    margin-top: 30px;
+
+`
+
+
 export default function SecondStep() {
+    
 
     const [value, setValue] = useState({header: "", skill: "", contact: "", introduce: "", stat: ""});
     const [headertyped, setHeadertyped] = useState("wave");
@@ -96,7 +143,7 @@ export default function SecondStep() {
     const [gradient2, setGradient2] = useState("");
 
     const [badge, setBadge] = useState("");
-    const [badgestyle, setBadgestyle] = useState("");
+    const [badgestyle, setBadgestyle] = useState("for-the-badge");
 
     const [hitbadge, setHitBadge] = useState("");
     const [contactbadge, setContactBadge] = useState("");
@@ -136,6 +183,7 @@ export default function SecondStep() {
     const ref2= useRef();
     const ref3= useRef();
     const ref4= useRef();
+    const buttonref = useRef();
 
 
 
@@ -149,16 +197,41 @@ export default function SecondStep() {
     const contactchecked = location.state.contactchecked;
     const statschecked = location.state.statschecked;
 
-    const headerdefault = `![header](https://capsule-render.vercel.app/api?type=${headertyped}&color=${color}&height=${height}&text=${text}&animation=${textanimation}&fontColor=${fontcolor}&fontSize=${fontsize}&fontAlign=${fontalign})
+    const [lightMode, setLightMode] = useState(true);
+    //   const [darkMode, setDarkMode] = useState(false);
+      const [darkMode, setDarkMode] = useState("light");
+      const [dark, setDark] = useState("");
+      const [darkborder, setDarkborder] = useState("#d8dee4");
+      const [darkfont, setDarkfont] = useState("#282d33");
+
+    const headerdefault = 
+    `<div align= "center">
+    <img src="https://capsule-render.vercel.app/api?type=${headertyped}&color=${color}&height=${height}&text=${text}&animation=${textanimation}&fontColor=${fontcolor}&fontSize=${fontsize}&fontAlign=${fontalign}" />
+    </div>
     `
-    const skilldefault = `<div style="text-align: ${allalign};"><h2> 🛠️ Tech Stacks </h2> <br> <div style="width: 600px; text-align: ${align}; margin: ${badgealign};"> ${badge}</div></div>
+    const skilldefault = 
+    `<div style="text-align: ${allalign};">
+    <h2 style="border-bottom: 1px solid ${darkborder}; color: ${darkfont};"> 🛠️ Tech Stacks </h2> <br> 
+    <div style="margin: ${badgealign}; text-align: ${align};" "text-align: ${align};"> ${badge}</div>
+    </div>
     `
-    const contactdefault = `<div style="text-align: ${allalign};"><h2> 🧑‍💻 Contact me </h2> <br> <div style="text-align: ${align};"> ${contactbadge} </div>  <br> <div style="text-align: ${align};"> ${hitbadge} </div> </div>
+    const contactdefault = 
+    `<div style="text-align: ${allalign};">
+    <h2 style="border-bottom: 1px solid ${darkborder}; color: ${darkfont};"> 🧑‍💻 Contact me </h2> <br> 
+    <div style="text-align: ${align};"> ${contactbadge} </div>  <br> 
+    <div style="text-align: ${align};"> ${hitbadge} </div> 
+    </div>
     `
-    const introductiondefault = `<div style="text-align: ${allalign};"> <h2> ${introductionheader} </h2>  <div style="font-weight: 700; font-size: 15px; text-align: ${align};"> 
-    ${introduction} </div> </div>
+    const introductiondefault = 
+    `<div style="text-align: ${allalign};"> 
+    <h2 style="border-bottom: 1px solid ${darkborder}; color: ${darkfont};"> ${introductionheader} </h2>  
+    <div style="font-weight: 700; font-size: 15px; text-align: ${allalign}; color: ${darkfont};"> ${introduction} </div> 
+    </div>
     `
-    const statdefault = `<div style="text-align: ${allalign};"> <h2> 🏅 Stats </h2> <div style="text-align: ${align};"> ${stats} ${mostlanguage} </div> </div>
+    const statdefault = 
+    `<div style="text-align: ${allalign};"> 
+    <h2 style="border-bottom: 1px solid ${darkborder}; color: ${darkfont};"> 🏅 Stats </h2> <div style="text-align: ${align};"> ${stats} ${mostlanguage} </div> 
+    </div>
     `
 
     const headerdesignactive  = () => {
@@ -224,7 +297,7 @@ export default function SecondStep() {
 
     useEffect(() => {
         if(headerchecked){
-            ref.current.getInstance().setMarkdown("");
+            // ref.current.getInstance().setMarkdown("");
             setValue(prev => ({...prev, header: headerdefault}))
         }else{
             setValue(prev => ({...prev, header: ""}))
@@ -233,7 +306,7 @@ export default function SecondStep() {
 
     useEffect(() => {
         if(skillstackschecked){
-            ref.current.getInstance().setMarkdown("");
+            // ref.current.getInstance().setMarkdown("");
             setValue(prev => ({...prev,skill: skilldefault}))
         }else{
             setValue(prev => ({...prev, skill: ""}))
@@ -242,7 +315,7 @@ export default function SecondStep() {
 
     useEffect(() => {
         if(contactchecked){
-            ref.current.getInstance().setMarkdown("");
+            // ref.current.getInstance().setMarkdown("");
             setValue(prev => ({...prev, contact: contactdefault}))
         }else{
             setValue(prev => ({...prev, contact: ""}))
@@ -251,7 +324,7 @@ export default function SecondStep() {
 
     useEffect(() => {
         if(introductionchecked){
-            ref.current.getInstance().setMarkdown("");
+            // ref.current.getInstance().setMarkdown("");
             setValue(prev => ({...prev, introduce: introductiondefault}))
         }else{
             setValue(prev => ({...prev, introduce: ""}))
@@ -260,7 +333,7 @@ export default function SecondStep() {
 
     useEffect(() => {
         if(statschecked){
-            ref.current.getInstance().setMarkdown("");
+            // ref.current.getInstance().setMarkdown("");
             setValue(prev => ({...prev, stat: statdefault}))
         }else{
             setValue(prev => ({...prev, stat: ""}))
@@ -280,13 +353,13 @@ export default function SecondStep() {
 }, [value.header, value.skill, value.contact, value.introduce, value.stat])
 
     useEffect(() => {
-        ref.current.getInstance().setMarkdown("");
+        // ref.current.getInstance().setMarkdown("");
         let b = "";
         for (var i in a){
             b += a[i];
         }
         
-        ref.current.getInstance().setMarkdown("");
+        // ref.current.getInstance().setMarkdown("");
         ref.current.getInstance().setMarkdown(a[0]);
         ref1.current.getInstance().setMarkdown(a[1]);
         ref2.current.getInstance().setMarkdown(a[2]);
@@ -297,55 +370,32 @@ export default function SecondStep() {
     , [a])
 
 
-    const setheadertype = (e) => {
-        setHeadertyped(e.target.name);
+    const setheadertype = (a) => {
+        setHeadertyped(a);
     }
 
-    const setheadercolor = (e) => {
-        if(e.target.name === "setcolor"){
-
-            setColor(e.target.value.slice(1));
-        }else if(e.target.name === "setcolorgradient1"){
-            // eslint-disable-next-line no-const-assign
-            setGradient1(e.target.value.slice(1));
-        }else if(e.target.name === "setcolorgradient2"){
-            // eslint-disable-next-line no-const-assign
-            setGradient2(e.target.value.slice(1));
-            setColor(`0:${gradient1},100:${gradient2}`);
-        }else{
-            setColor(e.target.name);
-        }        
+    const setheadercolor = (a) => {
+        setColor(a);
     }
 
-    const setheaderheight = (e) => {
-        if(e.target.name === "small"){
-            setHeight(120);
-        }else if(e.target.name === "medium"){
-            setHeight(180);
-        }else{
-            setHeight(240);
-        }
+    const setheaderheight = (a) => {
+        setHeight(a);
     }
 
-    const setheadertext = (e) => {
-        const a = e.target.value.replaceAll(" ", "%20");
+    const setheadertext = (a) => {
         setText(a);
     }
 
-    const setheadertextanimation = (e) => {
-        setTextanimation(e.target.name);
+    const setheadertextanimation = (a) => {
+        setTextanimation(a);
     }
 
-    const setheadertextcolor = (e) => {
-        if(e.target.name === "allcolor"){
-            setFontcolor(e.target.value.slice(1));
-        }else{
-            setFontcolor(e.target.name);
-        }
+    const setheadertextcolor = (a) => {
+        setFontcolor(a);
     }
 
-    const setheadertextsize = (e) => {
-        setFontsize(e.target.name);
+    const setheadertextsize = (a) => {
+        setFontsize(a);
     }
     
     //기술스택 함수
@@ -376,7 +426,10 @@ export default function SecondStep() {
     //Stat, most used language 함수
     const setgithubstats = (c) => {
         setStats(c);
+        console.log(c);
     }
+
+
 
     const setmostusedlanguage = (c) => {
         setMostlanguage(c);
@@ -398,14 +451,48 @@ export default function SecondStep() {
     const [isCopy, onCopy] = useCopyClipBoard();
 
   const handleCopyClipBoard = (text) => {
-    onCopy(text);
+    let a = text.replaceAll(`style="text-align: center;"`, `align= "center"`);
+    let b = a.replaceAll(`style="margin: ; text-align: center;"`, "");
+    let c = b.replaceAll(`"text-align: center;"`, `align= "center"`);
+
+    onCopy(c);
   };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    })
+  }
+
+
+
+  const handleSwitchToggle = () => {
+    if (!lightMode) {
+      setLightMode(true);
+      setDarkMode("#000000");
+      setDark("#ffffff");
+      setDarkborder("#d8dee4");
+      setDarkfont("#282d33");
+      buttonref.current.innerText = "DarkMode";
+    } else {
+      setLightMode(false);
+      setDarkMode("#ffffff");
+      setDark("#0d1117");
+      setDarkborder("#21262d");
+      setDarkfont("#c9d1d9");
+      buttonref.current.innerText = "LightMode";
+    }
+  };
+
+  
 
     
   return (
     <Wrapper>
                 {/* 선택지 */}
                 <SelectWrapper>
+                    <Topheader style={{"font-size": "16px"}}>✅ 화살표 버튼을 누르면 펼쳐집니다. 다시 펼칠 때 초기화 됩니다.</Topheader>
                    {headerchecked&&
                         <>  
                             <Topheader onClick={headerdesignactive}>🎈  Header Design <Downimg ref={headerbutton} src={downpng} alt='아래버튼'/> </Topheader> 
@@ -418,7 +505,6 @@ export default function SecondStep() {
                                 <HeaderTextAni setheadertextanimation={setheadertextanimation}/>
                                 <HeaderTextColor setheadertextcolor={setheadertextcolor}/>
                                 <HeaderTextSize setheadertextsize={setheadertextsize}/>
-                                {/* <HeaderTextAlign setheadertextalign={setheadertextalign}/> */}
                             </HeadertypeWrapper>}
                         </>
                    }
@@ -474,20 +560,23 @@ export default function SecondStep() {
                         
                 </SelectWrapper >
                 {/* 미리보기 */}
-                <PreviewShow>
-                    <div>
-                        <h2>미리보기</h2>
-                        
-                             <Viewer ref={ref}/> 
-                             <Viewer ref={ref1}/> 
-                             <Viewer ref={ref2}/> 
-                             <Viewer ref={ref3}/> 
-                             <Viewer ref={ref4}/> 
+                <PreviewShow bgColor={dark}>
+                    <div style={{"background-color": dark}}>
+                        <h2 style={{"font-size": "30px", "color" : darkMode}}>미리보기</h2>
+                                <Viewer ref={ref} /> 
+                                <Viewer ref={ref1} /> 
+                                 <Viewer ref={ref2} /> 
+                                 <Viewer ref={ref3} /> 
+                                 <Viewer ref={ref4} />
                     </div>
+                    <Darkbutton ref={buttonref} onClick={handleSwitchToggle}>
+                   DarkMode
+                    </Darkbutton>
                     
                          <Completebutton onClick={() => handleCopyClipBoard(completetext)}>Copy code!</Completebutton>
+                         <Topbutton onClick={scrollToTop}>TOP</Topbutton>
                 </PreviewShow>
-                {/* <Editor ref={ref6} initialValue={valuechecked}/> */}
+                {/* <Editor initialValue={"asdfasdf"} theme={'dark'}/> */}
                 
             </Wrapper>
            

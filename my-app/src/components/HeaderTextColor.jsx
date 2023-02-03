@@ -11,7 +11,11 @@ export default function HeaderColor(props) {
     }
     e.target.checked = true;
     setName(e.target.name);
-    props.setheadertextcolor(e);
+    if(e.target.name === "allcolor"){
+      props.setheadertextcolor(e.target.value.slice(1));
+  }else{
+    props.setheadertextcolor(e.target.name);
+  }
   }
 
   useEffect(() => {
@@ -29,7 +33,7 @@ export default function HeaderColor(props) {
                     <div ref={inputref}>
                       <Checkboxinput type="checkbox" name="000000" onClick={(e) => {cancelcheck(e)}}/>Black
                       <Checkboxinput type="checkbox"  name="ffffff" onClick={(e) => {cancelcheck(e)}}/>White
-                      <Checkboxinput type="color" name="allcolor" onClick={(e) => {cancelcheck(e)}}/>사용자 정의 단색
+                      <Checkboxinput type="color" name="allcolor" onChange={(e) => {cancelcheck(e)}}/>사용자 정의 단색
                       
                     </div >
                 </Selectwrapper>

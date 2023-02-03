@@ -9,7 +9,7 @@ export default function HeaderColor(props) {
       inputref.current.childNodes[i].checked = false;
     }
     e.target.checked = true;
-    props.setheadertextsize(e);
+    props.setheadertextsize(e.target.name);
 
   }
   return (

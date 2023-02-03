@@ -9,7 +9,13 @@ export default function HeaderHeight(props) {
       inputref.current.childNodes[i].checked = false;
     }
     e.target.checked = true;
-    props.setheaderheight(e);
+    if(e.target.name === "small"){
+      props.setheaderheight(120);
+  }else if(e.target.name === "medium"){
+    props.setheaderheight(180);
+  }else{
+    props.setheaderheight(240);
+  }
 
   }
   return (

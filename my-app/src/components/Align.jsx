@@ -20,9 +20,9 @@ const changealign = (e) =>{
     props.setalign("center");
     props.setbadgealign("0 auto");
   }else {
-    props.setallalign("lett");
+    props.setallalign("left");
     props.setalign("center");
-    props.setbadgealign("0 auto");
+    props.setbadgealign("");
   }
 }
 

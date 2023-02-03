@@ -146,9 +146,6 @@ export default function HeaderColor(props) {
   }
   
   const resetCheck = () => {
-    // for(var i = 0; i < 140; i+=2){
-    //   inputref.current.childNodes[i].checked = false;
-    // }
     setBadgeArr([]);
     setabc(allbadge);
   }
@@ -167,6 +164,10 @@ export default function HeaderColor(props) {
         badgeText += `<img src="https://img.shields.io/badge/${badgeArr[i]}-${colorArr[badgeArr[i]]}?style=${style}&logo=${badgeArr[i]}&logoColor=white">
           `
       }
+      if(i === 4 || i%5 === 4){
+          badgeText += "<br/>";
+      }
+      
     }
     props.setAllBadge(badgeText);
   }, [badgeArr, style])
@@ -186,6 +187,7 @@ export default function HeaderColor(props) {
     
   }
   const [abc, setabc] = useState([]);
+
   useEffect(()=> {
     if(alphabet === "a"){
       let d = allbadge.filter(value => value.props.children[2].match(/^[A-G]/))
@@ -278,9 +280,7 @@ export default function HeaderColor(props) {
 
   }, [alphabet, badgeArr])
 
-  // const filteralphabet1 = () => {
-    
-  // }
+  
 
   return (
     <Selectwrapper>

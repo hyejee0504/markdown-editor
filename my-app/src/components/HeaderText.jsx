@@ -9,7 +9,8 @@ export default function HeaderText(props) {
     //   inputref.current.childNodes[i].checked = false;
     // }
     // e.target.checked = true;
-    props.setheadertext(e);
+    const a = e.target.value.replaceAll(" ", "%20");
+    props.setheadertext(a);
 
   }
   return (
